@@ -7,6 +7,11 @@ A locally hosted Open Source mini web based application built using the Django d
 ## Visuals
 
 ## Installation
+Create a new folder named Library Management System
+Make it your current working directory
+Clone this repository using: git clone https://gitlab.com/12th2/g12-library-system.git
+Change directory using: cd g12-library-system
+......
 
 ## Usage
 The system should ideally be used by a librarian to manage the library's daily activities. It should improve book record keeping and save time in related processes. It should also enable the librarian to manage book transactions more effectively. 
