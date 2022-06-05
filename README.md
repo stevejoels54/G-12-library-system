@@ -40,11 +40,11 @@ The system should ideally be used by a librarian to manage the library's daily a
 
 ## Support
 Email any of the project contributors: 
-joelofelectronics@gmail.com, leonardobilly8@gmail.com, ..... 
+joelofelectronics@gmail.com, leonardobilly8@gmail.com, eleazarmish@gmail.com 
 
 ## Contributing
 The Project is open to contributions in form of feature ideas or code.
-Ideas can be emailed to the owner @....
+Ideas can be emailed to the owner @eleazarmish@gmail.com
 
 ## Authors and acknowledgment
 Project contributors:
