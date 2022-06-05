@@ -8,7 +8,7 @@ A locally hosted Open Source mini web based application built using the Django d
 
 ## Installation
 
-Note: Python should be preinstalled on your computer before continuing with the steps below.
+Note: Python and python-pip should be preinstalled on your computer before continuing with the steps below.
 
 1. Install a virtual environment manager of your choice eg virtualenv using:
     pip install virtualenv
