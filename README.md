@@ -5,6 +5,7 @@ Library Management System
 A locally hosted Open Source mini web based application built using the Django development framework.
 
 ## Visuals
+Nothing to add, this is just a sample
 
 ## Installation
 
