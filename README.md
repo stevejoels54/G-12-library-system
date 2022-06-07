@@ -18,35 +18,57 @@ A locally hosted **Open Source** mini web based application built using the **Dj
 ## INSTALLATION
 Note: Please ensure that atleast **python 3.8** and **pip** are installed on you machine before you follow the procedure. 
 
-1. Install [virtualenv] on your machine:
-    * ___For windows__:
-    $ python -m pip install virtualenv
-    * ___For Linux and Mac OS__:
-    $ pip install virtualenv
+1. Install [virtualenv](https://docs.python.org) on your machine:
+* ___For windows__:  
+```
+$ python -m pip install virtualenv
+```
+* ___For Linux and Mac OS__:  
+```
+$ pip install virtualenv 
+```
 2. Create a directory called LMS and move into that directory.
 
-3. Clone this projects public repository from [gitlab](https://gitlab.com):
-    $ git clone https://gitlab.com/12th2/g12-library-system.git
+3. Clone this projects public repository from [gitlab](https://gitlab.com):  
+```
+$ git clone https://gitlab.com/12th2/g12-library-system.git
+```
 
-4. Change the current working directory into the cloned projects directory:
-    $ cd g12-library-system
+4. Change the current working directory into the cloned projects directory:  
+```
+$ cd g12-library-system
+```
 
-5. Create a new virtual environment to manage the projects local modules:
-    $ virtualenv lms-env
+5. Create a new virtual environment to manage the projects local modules:  
+```
+$ virtualenv lms-env
+```
 
-6. A new folder lms-env will be created in the current directory.
-    * __On Windows activate the environment using:__
-    $ lms-env\Scripts\activate
-    * __On linux and Mac OS activate the environment using:__
-    $ source lms-env/bin/activate
-You should see the name __lms-env__ in brackets on your terminal line eg 
-    $(lms-env)user@laptop:~$
+6. A new folder lms-env will be created in the current directory.  
+* __On Windows activate the environment using:__   
+```
+$ lms-env\Scripts\activate
+```
 
-6. Install the project dependencies:
-    $ pip install -r requirements.txt
+* __On linux and Mac OS activate the environment using:__   
+```
+$ source lms-env/bin/activate  
+```
 
-7. Start the project using:
-    $ python manage.py runserver
+You should see the name __lms-env__ in brackets on your terminal line eg    
+```
+$(lms-env)user@laptop:~$
+```
+
+6. Install the project dependencies:  
+```
+$ pip install -r requirements.txt
+```
+
+7. Start the project using:    
+```
+$ python manage.py runserver
+```
 
 ## SYSTEM USAGE
 The system should ideally be used by a librarian to manage the library's daily activities. It should improve __book record keeping__ and __save time in related processes__. It should also enable the librarian to __manage book transactions more effectively__. 
@@ -59,11 +81,11 @@ __Email__ any of the project contributors:
 * eleazarmish@gmail.com 
 
 ## CONTRIBUTIONS
-The Project is open to contributions in form of feature ideas or code.
+The Project is open to contributions in form of feature ideas or code.   
 Ideas can be __emailed__ to the owner @eleazarmish@gmail.com
 
 ## AUTHORS AND ACKNOWLEDGEMENT
-Project contributors:
+Project contributors:  
 __Joel Steven Ssekyewa__ @joel_of_electronics
 __Kalanzi Grace__ @gracemercy
 __Eleazar Misheal__ @eleazarmish
