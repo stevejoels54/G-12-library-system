@@ -89,11 +89,11 @@ The Project is open to contributions in form of feature ideas or code.
 Ideas can be __emailed__ to the owner @eleazarmish@gmail.com
 
 ## AUTHORS AND ACKNOWLEDGEMENT
-Project contributors:  
-__Joel Steven Ssekyewa__ @joel_of_electronics
-__Kalanzi Grace__ @gracemercy
-__Eleazar Misheal__ @eleazarmish
-__Leonard Billy Ssekanjako__ @leonardobilly8
+Project contributors:   
+*__Joel Steven Ssekyewa__ @joel_of_electronics  
+*__Kalanzi Grace__ @gracemercy  
+*__Eleazar Misheal__ @eleazarmish   
+*__Leonard Billy Ssekanjako__ @leonardobilly8   
 
 ## LICENSE
 The project is __open source__, there is __no__ use warrantly. 
