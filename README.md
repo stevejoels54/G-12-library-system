@@ -19,15 +19,19 @@ A locally hosted **Open Source** mini web based application built using the **Dj
 Note: Please ensure that atleast **python 3.8** and **pip** are installed on you machine before you follow the procedure. 
 
 1. Install [virtualenv](https://docs.python.org) on your machine:
-* ___For windows__:  
+* __For windows__:  
 ```
 $ python -m pip install virtualenv
 ```
-* ___For Linux and Mac OS__:  
+* __For Linux and Mac OS__:  
 ```
 $ pip install virtualenv 
 ```
-2. Create a directory called LMS and move into that directory.
+2. Create a directory called LMS and move into that directory:   
+```
+$ mkdir LMS
+$ cd LMS
+```
 
 3. Clone this projects public repository from [gitlab](https://gitlab.com):  
 ```
