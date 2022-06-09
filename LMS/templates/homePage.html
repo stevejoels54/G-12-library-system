@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block navBar %}
+<nav class="navbar" style="background-color: #ccccff">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      {% load static %}
+      <img
+        src="{% static '/images/liblogo1.png' %}"
+        alt=""
+        width="30"
+        height="24"
+        class="d-inline-block align-text-top"
+      />
+      Library Management System
+    </a>
+  </div>
+</nav>
+<div class="body"></div>
+{% endblock %}
