@@ -14,48 +14,17 @@
     </a>
   </div>
 </nav>
-<div
-  class="body"
-  style="
-    background-image: url(static/images/libbg2.jpeg);
-    background-position: bottom;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-    width: 100%;
-  "
->
-  <div class="text-center">
-    {% load static %}
-    <img
-      class="rounded-circle shadow-lg mt-3"
-      src="{% static '/images/liblogo1.png' %}"
-      alt=""
-      style="max-width: 10%"
-    />
-  </div>
-  <h1 class="text-center mt-3">Welcome to LMS</h1>
-  <div class="d-flex justify-content-center">
-    <div class="card w-50 mt-5 shadow-lg">
-      <div class="card-header">Login</div>
-      <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" class="form-control" id="email" />
-          </div>
-          <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd" />
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" /> Remember me</label>
-          </div>
-          <div class="d-flex justify-content-between">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-warning">Sign in</button>
-          </div>
-        </form>
+{% load static %}
+<div>
+  <div
+    id="carouselExampleSlidesOnly"
+    class="carousel slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        {% load static %}
+        <img src="{% static '/images/libbg2.jpeg' %}" class="d-block w-100" />
       </div>
     </div>
   </div>

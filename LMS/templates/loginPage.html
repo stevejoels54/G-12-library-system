@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block login %}
+<nav class="navbar navbar-dark" style="background-color: #6495ed">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      {% load static %}
+      <img
+        src="{% static '/images/liblogo1.png' %}"
+        alt=""
+        width="30"
+        height="24"
+        class="d-inline-block align-text-top"
+      />
+      Library Management System
+    </a>
+  </div>
+</nav>
+<div>
+  <div class="text-center">
+    {% load static %}
+    <img
+      class="rounded-circle shadow-lg mt-3"
+      src="{% static '/images/liblogo1.png' %}"
+      alt=""
+      style="max-width: 10%"
+    />
+  </div>
+  <h1 class="text-center mt-3">Welcome to LMS</h1>
+  <div class="d-flex justify-content-center">
+    <div class="card w-50 mt-3 shadow-lg">
+      <div class="card-header">Login</div>
+      <div class="card-body">
+        <form action="." method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="email">Email address:</label>
+            <input class="form-control" id="email" name="username" />
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="pwd"
+              name="password"
+            />
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" /> Remember me</label>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-warning">Sign in</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
