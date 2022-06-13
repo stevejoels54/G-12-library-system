@@ -83,7 +83,7 @@ __Email__ any of the project contributors:
 * joelofelectronics@gmail.com
 * leonardobilly8@gmail.com
 * eleazarmish@gmail.com 
-
+* gracemercy709@gmail.com
 ## CONTRIBUTIONS
 The Project is open to contributions in form of feature ideas or code.   
 Ideas can be __emailed__ to the owner @eleazarmish@gmail.com
