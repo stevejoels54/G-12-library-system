@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block navBar %}
+<nav class="navbar navbar-dark" style="background-color: #6495ed">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      {% load static %}
+      <img
+        src="{% static '/images/liblogo1.png' %}"
+        alt=""
+        width="30"
+        height="24"
+        class="d-inline-block align-text-top"
+      />
+      Library Management System
+    </a>
+  </div>
+</nav>
+{% load static %}
+<div>
+  <div
+    id="carouselExampleSlidesOnly"
+    class="carousel slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        {% load static %}
+        <img src="{% static '/images/libbg2.jpeg' %}" class="d-block w-100" />
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
