@@ -1,0 +1,86 @@
+{% extends 'base.html' %} {% block homePage %} {% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Lato", sans-serif;
+      }
+
+      .sidebar {
+        margin: 10;
+        padding: 0;
+        width: 200px;
+        background-color: #f1f1f1;
+        position: fixed;
+        height: 100%;
+        overflow: auto;
+      }
+
+      .sidebar a {
+        display: block;
+        color: black;
+        padding: 16px;
+        text-decoration: none;
+      }
+
+      .sidebar a.active {
+        background-color: #6495ed;
+        color: white;
+      }
+
+      .sidebar a:hover:not(.active) {
+        background-color: #85c1e9;
+        color: white;
+      }
+
+      div.content {
+        margin-left: 200px;
+        padding: 1px 16px;
+        height: 1000px;
+      }
+
+      @media screen and (max-width: 700px) {
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: relative;
+        }
+        .sidebar a {
+          float: left;
+        }
+        div.content {
+          margin-left: 0;
+        }
+      }
+
+      @media screen and (max-width: 400px) {
+        .sidebar a {
+          text-align: center;
+          float: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <a href="#home"> <i class="fa fa-fw fa-home"></i> Home</a>
+      <a href="#books"> <i class="fa fa-fw fa-book"></i> Books</a>
+      <a href="#profile"> <i class="fa fa-fw fa-user"></i> Profile</a>
+      <a href="#notifications"> <i class="fa fa-bell"></i> Notifications</a>
+    </div>
+
+    <div class="content">
+      <h2>Responsive Sidebar Example</h2>
+    </div>
+  </body>
+</html>
+
+{% endblock %}
