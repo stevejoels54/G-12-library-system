@@ -12,13 +12,32 @@
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/style.css' %}"
-    />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
   </head>
   <body>
-    {% block navBar %}{% endblock %} {% block login %} {% endblock %}
+    <div>
+      <nav
+        class="navbar sticky-top navbar-dark"
+        style="background-color: #6495ed"
+      >
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            {% load static %}
+            <img
+              src="{% static '/images/liblogo1.png' %}"
+              alt=""
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top"
+            />
+            Library Management System
+          </a>
+        </div>
+      </nav>
+    </div>
+    <div>
+      {% block homePage %} {% endblock %} {% block login %} {%endblock %}
+    </div>
   </body>
 </html>
