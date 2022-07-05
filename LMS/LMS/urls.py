@@ -24,4 +24,5 @@ urlpatterns = [
     path('home/', homeView, name='home'),
     path('login/', loginView, name='login'),
     path('dashboard/', dashboardView, name='dashboard')
+    path('signup/', signup, name="signup"),
 ]
