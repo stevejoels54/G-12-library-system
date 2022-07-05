@@ -55,19 +55,15 @@
             <form action="." method="POST">
               {% csrf_token %}
               <div class="form-group">
-                <label for="email">User name:</label>
-                <input class="form-control" id="email" name="username" />
+                <label for="email">First name:</label>
+                <input class="form-control" id="first_name" name="first_name" />
               </div>
               <div class="form-group">
-                <label for="email">first_name:</label>
-                <input class="form-control" id="email" name="first_name" />
+                <label for="email">Last name:</label>
+                <input class="form-control" id="last_name" name="last_name" />
               </div>
               <div class="form-group">
-                <label for="email">last_name:</label>
-                <input class="form-control" id="email" name="last_name" />
-              </div>
-              <div class="form-group">
-                <label for="email">email:</label>
+                <label for="email">Email:</label>
                 <input class="form-control" id="email" name="email" />
               </div>
               <div class="form-group">
@@ -79,10 +75,20 @@
                   name="password"
                 />
               </div>
-              <div class="checkbox">
-                <label><input type="checkbox" /> Remember me</label>
+              <div class="form-group">
+                <label for="role">Role:</label>
+                <select
+                  class="form-select"
+                  name="role"
+                  id="role"
+                  aria-label="Default select example"
+                >
+                  <option selected>Select role</option>
+                  <option value="student">Student</option>
+                  <option value="admin">Administrator</option>
+                </select>
               </div>
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between mt-3">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
             </form>
