@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
 
@@ -25,3 +26,19 @@ def loginView(request):
             return render(request, "login_page.html", context)
 
     return render(request, "login_page.html", context=context)
+
+def signup(request):
+    if request.method == "POST":
+        user_name = request.POST['username']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        password = request.POST['password']
+
+        new_user = User.objects.create_user(user_name, email, password)
+        new_user.first_name = first_name 
+        new_user.last_name = last_name
+
+        return redirect('/login/')
+
+    return render(request, 'signup.html')
