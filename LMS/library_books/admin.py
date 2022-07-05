@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
-from .models import Books
+from .models import Books, Payments
 
 admin.site.register(Books)
+admin.site.register(Payments)
+
