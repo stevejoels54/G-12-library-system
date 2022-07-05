@@ -3,4 +3,12 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
-    pass
+    name = models.CharField(max_length=50)
+    email =models.EmailField(max_length=100)
+    password =models.CharField(max_length=50)
+    date_of_birth =models.DateField(max_length=50)
+    sex =models.CharField(max_length=10)
+
+
+    def __str__(self):
+        return self.name
