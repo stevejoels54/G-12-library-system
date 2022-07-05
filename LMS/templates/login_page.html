@@ -15,6 +15,15 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"
     />
+    <style>
+      .invalid {
+        border: none;
+        border-radius: 5px;
+        margin: 10px;
+        background-color: rgba(255, 0, 0, 0.2);
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
     <div>
@@ -52,17 +61,32 @@
         <div class="card w-50 mt-3 shadow-lg">
           <div class="card-header">Login</div>
           <div class="card-body">
+            {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+              <li {% if message.tags %} class="invalid" {% endif %}>
+                {{ message }}
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
             <form action="." method="POST">
               {% csrf_token %}
               <div class="form-group">
                 <label for="email">User name:</label>
-                <input class="form-control" id="email" name="username" />
+                <input
+                  class="form-control"
+                  value="{{ username }}"
+                  id="email"
+                  name="username"
+                />
               </div>
               <div class="form-group">
                 <label for="pwd">Password:</label>
                 <input
                   type="password"
                   class="form-control"
+                  value="{{ password }}"
                   id="pwd"
                   name="password"
                 />
