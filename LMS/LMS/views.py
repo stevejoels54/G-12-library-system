@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
+<<<<<<< LMS/LMS/views.py
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from customuser.models import CustomUser
+from django.contrib.auth import authenticate, login
 
 
 @login_required(login_url='/login/')
@@ -47,8 +50,8 @@ def signup(request):
         last_name = request.POST['last_name']
         email = request.POST['email']
         password = request.POST['password']
-
         new_user = User.objects.create_user(user_name, email, password)
+        new_user = CustomUser.objects.create_user(user_name, email, password)
         new_user.first_name = first_name
         new_user.last_name = last_name
 
