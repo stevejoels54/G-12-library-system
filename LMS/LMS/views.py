@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate, login
 def homeView(request):
     return render(request, "home_page.html", {})
 
+def dashboardView(request):
+    return render(request, "dashboard.html", {})
+
 
 def loginView(request):
     context = {}
