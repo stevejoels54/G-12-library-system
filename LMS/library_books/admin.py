@@ -1,7 +1,5 @@
 from django.contrib import admin
 
-from .models import Books, Payments
+from .models import Book
 
-admin.site.register(Books)
-admin.site.register(Payments)
-
+admin.site.register(Book)
