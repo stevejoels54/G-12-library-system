@@ -4,17 +4,28 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from customuser.models import CustomUser
-from django.contrib.auth import authenticate, login
+
+
+global user
+
+
+def getUser(request, pk):
+    user = CustomUser.objects.get(id=pk)
+
+
+@login_required(login_url='/login/')
+def leftMenu(request, pk):
+    return render(request, "left_menu_template.html", {'user': user})
+
+
+@login_required(login_url='/login/')
+def base(request, pk):
+    return render(request, "base.html", {'user': user})
 
 
 @login_required(login_url='/login/')
 def homeView(request):
     return render(request, "home_page.html", {})
-
-
-@login_required(login_url='/login/')
-def dashboardView(request):
-    return render(request, "dashboard.html", {})
 
 
 @login_required(login_url='/login/')
