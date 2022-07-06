@@ -50,7 +50,7 @@ def loginView(request):
             messages.error(request, "Invalid username or password")
             return render(request, "login_page.html", context)
 
-    return render(request, "login_page.html", context=context)
+    return render(request, "login_page.html")
 
 
 def signup(request):
