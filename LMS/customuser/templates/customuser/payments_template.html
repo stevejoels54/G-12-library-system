@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <h4 class="p-2 mb-2 mt-3" style="text-align: center"><strong>Payments information</strong></h4>
+
+  {% if role == 'Admin'%}
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Student ID</th>
+        <th scope="col">Student Name</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Borrowed Book</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Pending Payment</th>
+      </tr>
+      
+      {% for name, book in details.items %}
+      
+      <tbody>
+        <tr>
+          <th scope="row">{{user.id}}</th>
+          <td>{{name}}</td>
+          <td>{{user.phone_number}}</td>
+          <td>{{book.title}}</td>
+          <td>{{book.due_date}}</td>
+          <td>***</td>
+        </tr>
+      </tbody>
+
+      {% endfor %}
+  </table>
+
+  {% else %}
+
+  <p>Dear, {{user.name}} you borrowed <strong>{{book.title}}</strong>
+    on <strong>{{book.updated}}</strong> and are requested to return 
+    it before <strong>{{book.due_date}}</strong>.
+  </p>
+
+  {% endif %}
+
+</div>
+
+{% endblock %}

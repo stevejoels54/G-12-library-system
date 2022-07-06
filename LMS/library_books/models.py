@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Books(models.Model):
+class Book(models.Model):
     title = models.CharField(max_length=200)
     book_code = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
@@ -16,13 +16,3 @@ class Books(models.Model):
 
 def __str__(self):
     return self.title
-
-
-class Payments(models.Model):
-    book_id = models.BigIntegerField()
-    description = models.TextField(null=True, blank=True)
-    status = models.CharField(max_length=50, default='Pending')
-    amount = models.CharField(max_length=50, default='O UGX')
-
-    def __str__(self):
-        return self.description[0:20]
