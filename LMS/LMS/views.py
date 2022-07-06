@@ -31,7 +31,7 @@ def homeView(request):
 @login_required(login_url='/login/')
 def logoutUser(request):
     logout(request)
-    return redirect('dashboard')
+    return redirect('login')
 
 
 def loginView(request):
