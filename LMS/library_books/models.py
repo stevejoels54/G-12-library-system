@@ -23,6 +23,8 @@ class Payments(models.Model):
     description = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=50, default='Pending')
     amount = models.CharField(max_length=50, default='O UGX')
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.description[0:20]
