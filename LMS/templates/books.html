@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block base %}
+
+<div class="container-fluid">
+<form method="POST" action=",">
+    {% csrf_token %}
+    <div class="container-fluid">
+        <label class="form-label">Book title:</label>
+        <input type="text" name="title" placeholder="New book title" class="form-control"/>
+
+        <label class="form-label">Book code:</label>
+        <input type="text" name="book_code" placeholder="Add book code" class="form-control"/>
+
+        <label class="form-label">Book author:</label>
+        <input type="text" name="author" placeholder="Author" class="form-control"/>
+    </div>
+
+</form>
+</div>
+
+{% endblock %}

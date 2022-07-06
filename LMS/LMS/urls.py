@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from .views import homeView
 from .views import loginView
-from .views import bookView
+from library_books.views import bookView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
