@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="card border-info mt-3" style="background-color: #DEE4E7;">
+
+    <div class="card-header">
+      <h4 class="p-2 mb-2" style="text-align: center"><strong>User profile settings</strong></h4>
+    </div>
+
+    <div class="card-body">
+      <p>Name: {{user.username}}</p>
+      <p>Sex: {{user.sex}}</p>
+      <p>Email: {{user.email}}</p>
+      <p>Date of birth: {{user.date_of_birth}}</p>
+      <p>Phone number: {{user.phone_number}}</p>
+      <p>Role: {{user.role}}</p>
+    </div>
+
+    <button class="btn btn-primary w-25 m-2">Update details</button>
+  </div>
+</div>
+
+
+{% endblock %}
