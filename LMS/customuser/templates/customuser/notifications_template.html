@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <h4 class="p-2 mb-2 mt-3" style="text-align: center"><strong>User notifications</strong></h4>
+
+  {% if user.role == 'Student' %}
+  
+  <p>Dear, {{user.name}} you borrowed <strong>{{book.title}}</strong>
+    on <strong>{{book.updated}}</strong> and are requested to return 
+    it before <strong>{{book.due_date}}</strong>.
+  </p>
+
+  {% elif user.role == 'Admin' %}
+
+  <p class="m-2">Admin notifications coming soon!!</p>
+
+  {% endif %}
+
+</div>
+
+{% endblock %}

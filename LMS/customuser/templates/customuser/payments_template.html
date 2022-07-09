@@ -3,11 +3,20 @@
 {% block content %}
 
 <div class="container-fluid">
-  <h4 class="p-2 mb-2 mt-3" style="text-align: center"><strong>Payments information</strong></h4>
-
+  <nav class="navbar navbar-expand-lg bg-light p-2 mb-2 mt-3">
+    <h4 class="navbar-brand m-2"><strong>Books and payments information</strong></h4>
+      <div class="container-fluid justify-content-center">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search payments"
+          />
+          <button class="btn btn-outline-primary" type="submit">Search</button>
+      </div>
+  </nav>
   {% if role == 'Admin'%}
 
-  <table class="table table-bordered">
+  <table class="table table-bordered bg-light">
     <thead>
       <tr>
         <th scope="col">Student ID</th>
@@ -36,10 +45,6 @@
 
   {% else %}
 
-  <p>Dear, {{user.name}} you borrowed <strong>{{book.title}}</strong>
-    on <strong>{{book.updated}}</strong> and are requested to return 
-    it before <strong>{{book.due_date}}</strong>.
-  </p>
 
   {% endif %}
 
