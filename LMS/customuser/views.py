@@ -33,3 +33,12 @@ def userPayments(request, pk):
                'borrowed_book': borrowed_book, 'details': details}
 
     return render(request, 'customuser/payments_template.html', context)
+
+
+@login_required(login_url='login')
+def userNotifications(request, pk):
+    user = CustomUser.objects.get(id=pk)
+
+    context = {'user': user}
+
+    return render(request, 'customuser/notifications_template.html', context)
