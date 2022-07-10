@@ -18,7 +18,9 @@ class CustomUser(AbstractUser):
 
 
 class UserPayment(models.Model):
-    book_id = models.BigIntegerField()
+    payee_book = models.ForeignKey(
+        'library_books.Book', on_delete=models.CASCADE)
+    payer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     description = models.TextField(null=True, blank=True)
