@@ -42,3 +42,6 @@ def userNotifications(request, pk):
     context = {'user': user}
 
     return render(request, 'customuser/notifications_template.html', context)
+
+def home(request):
+    return render(request, "home.html", {})
