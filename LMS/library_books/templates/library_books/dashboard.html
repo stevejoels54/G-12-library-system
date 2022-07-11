@@ -5,12 +5,13 @@
     style="position: fixed; z-index: 1000; width: 55.8%; top: 0; left: 18%"
   >
     <div class="container-fluid justify-content-center">
-      <form class="d-flex w-100" role="search">
+      <form class="d-flex w-100" action="." method="POST" autocomplete="off">
+        {% csrf_token %}
         <input
           class="form-control me-2"
-          type="search"
+          id="value"
+          name="value"
           placeholder="Search"
-          aria-label="Search"
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
@@ -48,7 +49,7 @@
       </div>
     </div>
     {% endfor %} {% else %}
-    <h1 class="d-flex justify-content-center">No books found</h1>
+    <h1 class="d-flex justify-content-center mt-5 ml-5">No books found...</h1>
     {% endif %}
   </div>
   <div class="mt-5"></div>
