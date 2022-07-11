@@ -1,6 +1,9 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 <div class="container-fluid w-100">
-  <nav class="navbar navbar-expand-lg bg-light">
+  <nav
+    class="navbar navbar-expand bg-light"
+    style="position: fixed; z-index: 1000; width: 55.8%; top: 0; left: 17.6%"
+  >
     <div class="container-fluid justify-content-center">
       <form class="d-flex w-100" role="search">
         <input
@@ -13,6 +16,100 @@
       </form>
     </div>
   </nav>
+  <style>
+    .books-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-top: 60px;
+    }
+    .cards {
+      width: 25%;
+      margin-right: 20px;
+      margin: 32px;
+    }
+  </style>
+  <div class="books-container">
+    <div class="cards">
+      <div class="card" style="width: 15rem height: 10%">
+        <img
+          src="{% static '/images/imagebook1.jpeg' %}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">General relativity</h5>
+          <h6 class="card-text">Author :</h6>
+          <h6 class="card-text">Category :</h6>
+          <a href="#" class="btn btn-primary">Borrow</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card" style="width: 15rem height: 10%">
+        <img
+          src="{% static '/images/imagebook1.jpeg' %}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">General relativity</h5>
+          <h6 class="card-text">Author :</h6>
+          <h6 class="card-text">Category :</h6>
+          <a href="#" class="btn btn-primary">Borrow</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card" style="width: 15rem height: 10%">
+        <img
+          src="{% static '/images/imagebook1.jpeg' %}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">General relativity</h5>
+          <h6 class="card-text">Author :</h6>
+          <h6 class="card-text">Category :</h6>
+          <a href="#" class="btn btn-primary">Borrow</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card" style="width: 15rem height: 10%">
+        <img
+          src="{% static '/images/imagebook1.jpeg' %}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">General relativity</h5>
+          <h6 class="card-text">Author :</h6>
+          <h6 class="card-text">Category :</h6>
+          <a href="#" class="btn btn-primary">Borrow</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card" style="width: 15rem height: 10%">
+        <img
+          src="{% static '/images/imagebook1.jpeg' %}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">General relativity</h5>
+          <h6 class="card-text">Author :</h6>
+          <h6 class="card-text">Category :</h6>
+          <a href="#" class="btn btn-primary">Borrow</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
