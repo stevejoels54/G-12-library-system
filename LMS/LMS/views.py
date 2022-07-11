@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from customuser.models import CustomUser
 
-
 global user
 
 
@@ -44,7 +43,7 @@ def loginView(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("home")
+            return redirect("dashboard")
         else:
             context["error"] = "Invalid username or password"
             messages.error(request, "Invalid username or password")
@@ -69,5 +68,6 @@ def signup(request):
 
     return render(request, 'signup.html')
 
+
 def home(request):
-        return render(request, "home.html", {})
+    return render(request, "home.html", {})
