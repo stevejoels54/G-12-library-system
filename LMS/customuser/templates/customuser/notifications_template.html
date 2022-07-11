@@ -3,18 +3,73 @@
 {% block content %}
 
 <div class="container-fluid">
-  <h4 class="p-2 mb-2 mt-3" style="text-align: center"><strong>User notifications</strong></h4>
-
-  {% if user.role == 'Student' %}
+  {% if request.user.role == 'Student' %}
   
   <p>Dear, {{user.name}} you borrowed <strong>{{book.title}}</strong>
     on <strong>{{book.updated}}</strong> and are requested to return 
     it before <strong>{{book.due_date}}</strong>.
   </p>
 
-  {% elif user.role == 'Admin' %}
+  {% elif request.user.role == 'Admin' %}
 
-  <p class="m-2">Admin notifications coming soon!!</p>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg bg-light p-2 mb-2 mt-3">
+      <h4 class="navbar-brand m-2"><strong>Pending book requests</strong></h4>
+        <div class="container-fluid justify-content-center">
+            <input class="form-control me-2" type="search" placeholder="Search pending requests"/>
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </div>
+    </nav>
+
+    <table class="table table-bordered bg-light">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Phone number</th>
+          <th scope="col">Book Title</th>
+          <th scope="col">Time requested</th>
+          <th scope="col">Actions</th>
+        </tr>
+        
+        <tbody>
+          <tr>
+          {% for detail in details.values %}
+            {% if detail %}
+            <th scope="row">{{detail.name}}</th>
+            <td>{{detail.phone_number}}</td>
+            <td>{{detail.title}}</td>
+            <td>{{detail.time_created}}</td>
+            <td>
+              <form method="POST" action="">
+                {% csrf_token %}
+                <div class="btn-group justify-content-center" role="group">
+                  <button type="submit" class="btn btn-outline-primary">Accept</button>
+                  <button type="submit" class="btn btn-outline-danger">Decline</button>
+                </div>
+              </form>
+            </td>
+            {% else %}
+            <th scope="row">_</th>
+            <td>_</td>
+            <td>_</td>
+            <td>_</td>
+            <td>
+              <form method="POST" action="">
+                {% csrf_token %}
+                <div class="btn-group justify-content-center" role="group">
+                  <button type="submit" class="btn btn-outline-primary">Accept</button>
+                  <button type="submit" class="btn btn-outline-danger">Decline</button>
+                </div>
+              </form>
+            </td>
+            {% endif %}
+          {% endfor %}
+          </tr>
+        </tbody>
+
+    </table>
+
+  </div>
 
   {% endif %}
 
