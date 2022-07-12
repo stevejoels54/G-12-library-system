@@ -28,11 +28,16 @@
     <style>
       .base-container {
         display: grid;
-        grid-template-columns: 0.8fr 3fr 1.2fr;
+        grid-template-columns: 0.7fr 3.1fr 1.2fr;
+      }
+      
+      .base-in {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
       }
       body {
         font-family: "Nunito", sans-serif;
-        {% comment %} background-color: #f8f9fa; {% endcomment %}
+        font-size: 18px;
       }
 
       .sidebar {
@@ -94,7 +99,7 @@
     <div class="base-container">
       <div class="content">{% include 'left_menu_template.html' %}</div>
 
-      <div class="">{% block content %} {% endblock %}</div>
+      <div class="container-fluid justify-content-center">{% block content %} {% endblock %}</div>
 
       <div>{% include 'right_menu_template.html' %}</div>
     </div>
