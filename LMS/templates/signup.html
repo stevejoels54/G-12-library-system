@@ -26,6 +26,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <style>
+      .invalid {
+        border: none;
+        border-radius: 5px;
+        margin: 10px;
+        background-color: rgba(255, 0, 0, 0.2);
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
     <div>
@@ -63,60 +72,127 @@
         <div class="card w-50 mt-2 shadow-lg">
           <div class="card-header">Signup</div>
           <div class="card-body">
-            <form action="." method="POST">
+            {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+              <li {% if message.tags %} class="invalid" {% endif %}>
+                {{ message }}
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            <form
+              action="."
+              method="POST"
+              class="needs-validation"
+              autocomplete="off"
+            >
               {% csrf_token %}
-              <div class="form-group">
-                <label for="email">Name:</label>
-                <input class="form-control" id="name" name="name" />
-              </div>
-              <div class="form-group">
-                <label for="email">Email:</label>
-                <input class="form-control" id="email" name="email" />
-              </div>
-              <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="pwd"
-                  name="password"
-                />
-              </div>
-              <div class="form-group">
-                <label for="role">Role:</label>
-                <select
-                  class="form-select"
-                  name="role"
-                  id="role"
-                  aria-label="Role select"
-                >
-                  <option value="" selected disabled>Please select role</option>
-                  <option value="student">Student</option>
-                  <option value="admin">Administrator</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="role">Sex:</label>
-                <select
-                  class="form-select"
-                  name="sex"
-                  id="sex"
-                  aria-label="Sex select"
-                >
-                  <option value="" selected disabled>Please select sex</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </div>
-              <div class="date form-group" data-provide="datepicker">
-                <label for="date">Date of Birth:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="DOB"
-                  name="date_of_birth"
-                />
-                <div class="input-group-addon"></div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="email">Name:</label>
+                    <input
+                      class="form-control"
+                      id="name"
+                      name="name"
+                      value="{{ name }}"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      value="{{ email }}"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="pwd"
+                      name="password"
+                      value="{{ password }}"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="pwd">Confirm password:</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="pwd"
+                      name="confirm_password"
+                      value="{{ confirm_password }}"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="phone_number"
+                      name="phone_number"
+                      value="{{ phone_number }}"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select
+                      class="form-select"
+                      name="role"
+                      value="{{ role }}"
+                      id="role"
+                      aria-label="Role select"
+                      required
+                    >
+                      <option value="" selected disabled>
+                        Please select role
+                      </option>
+                      <option value="student">Student</option>
+                      <option value="admin">Administrator</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="role">Sex:</label>
+                    <select
+                      class="form-select"
+                      name="sex"
+                      value="{{ sex }}"
+                      id="sex"
+                      aria-label="Sex select"
+                      required
+                    >
+                      <option value="" selected disabled>
+                        Please select sex
+                      </option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                  <div class="date form-group" data-provide="datepicker">
+                    <label for="date">Date of Birth:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="DOB"
+                      value="{{ date_of_birth }}"
+                      name="date_of_birth"
+                      required
+                    />
+                    <div class="input-group-addon"></div>
+                  </div>
+                </div>
               </div>
               <div class="d-flex justify-content-between mt-3">
                 <button type="submit" class="btn btn-primary">Submit</button>
