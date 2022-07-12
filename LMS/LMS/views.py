@@ -68,6 +68,9 @@ def signup(request):
 
     return render(request, 'signup.html')
 
+@login_required(login_url='/login/')
+def activityView(request):
+    return render(request, 'right_menu_template.html', {})
 
 def home(request):
     return render(request, "home.html", {})
