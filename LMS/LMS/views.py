@@ -54,17 +54,29 @@ def loginView(request):
 
 def signup(request):
     if request.method == "POST":
-        user_name = request.POST['username']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        email = request.POST['email']
-        password = request.POST['password']
-        new_user = User.objects.create_user(user_name, email, password)
-        new_user = CustomUser.objects.create_user(user_name, email, password)
-        new_user.first_name = first_name
-        new_user.last_name = last_name
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+        role = request.POST.get('role')
+        sex = request.POST.get('sex')
+        date_of_birth = request.POST.get('date_of_birth')
+        context["name"] = name
+        context["email"] = email
+        context["phone_number"] = phone_number
+        context["password"] = password
+        context["confirm_password"] = confirm_password
+        context["role"] = role
+        context["sex"] = sex
+        context["date_of_birth"] = date_of_birth
+        print(role)
+        #new_user = CustomUser.objects.create_user(name, email, password, role, sex, date_of_birth)
 
-        return redirect('/login/')
+        if (password != confirm_password):
+            messages.error(request, "Password should match confirm password")
+
+        #return redirect('/signup/')
 
     return render(request, 'signup.html')
 

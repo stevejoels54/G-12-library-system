@@ -2,15 +2,16 @@
 <div class="container-fluid w-100">
   <nav
     class="navbar navbar-expand bg-light"
-    style="position: fixed; z-index: 1000; width: 55.8%; top: 0; left: 17.6%"
+    style="position: fixed; z-index: 1000; width: 55.8%; top: 0; left: 17%"
   >
     <div class="container-fluid justify-content-center">
-      <form class="d-flex w-100" role="search">
+      <form class="d-flex w-100" action="." method="POST" autocomplete="off">
+        {% csrf_token %}
         <input
           class="form-control me-2"
-          type="search"
+          id="value"
+          name="value"
           placeholder="Search"
-          aria-label="Search"
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
@@ -21,95 +22,37 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      margin-top: 60px;
+      margin-top: 40px;
     }
     .cards {
-      width: 25%;
-      margin-right: 20px;
-      margin: 32px;
+      width: 25.6%;
+      margin-right: 10px;
+      margin: 27px;
+      margin-bottom: 10px;
     }
   </style>
   <div class="books-container">
+    {% if books %} {% for book in books %}
     <div class="cards">
-      <div class="card" style="width: 15rem height: 10%">
+      <div class="card" style="width: 18rem height: 10%">
         <img
           src="{% static '/images/imagebook1.jpeg' %}"
           class="card-img-top"
           alt="..."
         />
         <div class="card-body">
-          <h5 class="card-title">General relativity</h5>
-          <h6 class="card-text">Author :</h6>
-          <h6 class="card-text">Category :</h6>
+          <h5 class="card-title">{{book.title}}</h5>
+          <h6 class="card-text">Author: {{book.author}}</h6>
+          <h6 class="card-text">Category: {{book.subject_area}}</h6>
           <a href="#" class="btn btn-primary">Borrow</a>
         </div>
       </div>
     </div>
-
-    <div class="cards">
-      <div class="card" style="width: 15rem height: 10%">
-        <img
-          src="{% static '/images/imagebook1.jpeg' %}"
-          class="card-img-top"
-          alt="..."
-        />
-        <div class="card-body">
-          <h5 class="card-title">General relativity</h5>
-          <h6 class="card-text">Author :</h6>
-          <h6 class="card-text">Category :</h6>
-          <a href="#" class="btn btn-primary">Borrow</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="cards">
-      <div class="card" style="width: 15rem height: 10%">
-        <img
-          src="{% static '/images/imagebook1.jpeg' %}"
-          class="card-img-top"
-          alt="..."
-        />
-        <div class="card-body">
-          <h5 class="card-title">General relativity</h5>
-          <h6 class="card-text">Author :</h6>
-          <h6 class="card-text">Category :</h6>
-          <a href="#" class="btn btn-primary">Borrow</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="cards">
-      <div class="card" style="width: 15rem height: 10%">
-        <img
-          src="{% static '/images/imagebook1.jpeg' %}"
-          class="card-img-top"
-          alt="..."
-        />
-        <div class="card-body">
-          <h5 class="card-title">General relativity</h5>
-          <h6 class="card-text">Author :</h6>
-          <h6 class="card-text">Category :</h6>
-          <a href="#" class="btn btn-primary">Borrow</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="cards">
-      <div class="card" style="width: 15rem height: 10%">
-        <img
-          src="{% static '/images/imagebook1.jpeg' %}"
-          class="card-img-top"
-          alt="..."
-        />
-        <div class="card-body">
-          <h5 class="card-title">General relativity</h5>
-          <h6 class="card-text">Author :</h6>
-          <h6 class="card-text">Category :</h6>
-          <a href="#" class="btn btn-primary">Borrow</a>
-        </div>
-      </div>
-    </div>
+    {% endfor %} {% else %}
+    <h1 class="d-flex justify-content-center mt-5 ml-5">No books found...</h1>
+    {% endif %}
   </div>
+  <div class="mt-5"></div>
 </div>
 
 {% endblock %}
