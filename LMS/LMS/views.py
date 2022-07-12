@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from customuser.models import CustomUser
+from library_books.models import Book, Request
 
 global user
 
@@ -43,7 +44,7 @@ def loginView(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("dashboard")
+            return redirect("/dashboard/" + str(user.id))
         else:
             context["error"] = "Invalid username or password"
             messages.error(request, "Invalid username or password")

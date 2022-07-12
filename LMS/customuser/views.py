@@ -8,13 +8,12 @@ from library_books.models import Book, Request
 @login_required(login_url='login')
 def userProfile(request, pk):
     user = CustomUser.objects.get(id=pk)
+    total_books = Book.objects.all()
+    users = CustomUser.objects.all()
+    pending_requests = Request.objects.filter(status="Pending")
+    librarian = CustomUser.objects.get(role__icontains="Admin")
+    borrowed_book = Book.objects.filter(borrower_id=user.id)
 
-    context = {'user': user}
-    return render(request, 'customuser/profile_template.html', context)
-
-
-@login_required(login_url='login')
-def userPayments(request, pk):
     if request.user.role == 'Admin':
         details = {}  # Main dictionary containing all others
         index = 0  # Counter
@@ -63,7 +62,15 @@ def userPayments(request, pk):
             payment = ''
             book = ''
 
-        context = {'payment': payment, 'book': book}
+    context = {
+        'details': details,
+        'users': users.count(),
+        'total_books': total_books.count(),
+        'pending_requests': pending_requests.count(),
+        'librarian': librarian,
+        'borrowed_book': borrowed_book,
+        'payment': payment, 'book': book
+    }
 
     return render(request, 'customuser/payments_template.html', context)
 
@@ -73,6 +80,11 @@ def userNotifications(request, pk):
     template_details = {}
     details = {}
     index = 0
+    total_books = Book.objects.all()
+    users = CustomUser.objects.all()
+    pending_requests = Request.objects.filter(status="Pending")
+    librarian = CustomUser.objects.get(role__icontains="Admin")
+    borrowed_book = Book.objects.filter(borrower_id=user.id)
 
     try:
         students = CustomUser.objects.all()
@@ -104,7 +116,14 @@ def userNotifications(request, pk):
 
             index += 1
 
-    context = {'details': details}
+    context = {
+        'details': details,
+        'users': users.count(),
+        'total_books': total_books.count(),
+        'pending_requests': pending_requests.count(),
+        'librarian': librarian,
+        'borrowed_book': borrowed_book
+    }
     return render(request, 'customuser/notifications_template.html', context)
 
 
