@@ -48,7 +48,7 @@ def userPayments(request, pk):
                     payment = UserPayment.objects.get(payer=student.id)
                     details[index]['amount'] = payment.amount
                 except:
-                    # Terminte entry if no payment exists
+                    # Terminate entry if no payment exists
                     details.pop(index)
 
                 index += 1
@@ -61,6 +61,7 @@ def userPayments(request, pk):
             payment = UserPayment.objects.get(payer=student.id)
         except:
             payment = ''
+            book = ''
 
         context = {'payment': payment, 'book': book}
 
