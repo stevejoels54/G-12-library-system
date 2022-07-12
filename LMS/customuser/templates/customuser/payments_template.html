@@ -6,45 +6,45 @@
   <nav class="navbar navbar-expand-lg bg-light p-2 mb-2 mt-3">
     <h4 class="navbar-brand m-2"><strong>Books and payments information</strong></h4>
       <div class="container-fluid justify-content-center">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search payments"
-          />
+          <input class="form-control me-2" type="search" placeholder="Search payments"/>
           <button class="btn btn-outline-primary" type="submit">Search</button>
       </div>
   </nav>
-  {% if role == 'Admin'%}
+  {% if request.user.role == 'Admin'%}
 
   <table class="table table-bordered bg-light">
     <thead>
       <tr>
-        <th scope="col">Student ID</th>
         <th scope="col">Student Name</th>
         <th scope="col">Phone Number</th>
         <th scope="col">Borrowed Book</th>
         <th scope="col">Due Date</th>
-        <th scope="col">Pending Payment</th>
+        <th scope="col">Amount</th>
       </tr>
-      
-      {% for name, book in details.items %}
       
       <tbody>
         <tr>
-          <th scope="row">{{user.id}}</th>
-          <td>{{name}}</td>
-          <td>{{user.phone_number}}</td>
-          <td>{{book.title}}</td>
-          <td>{{book.due_date}}</td>
-          <td>***</td>
+          {% for detail in details.values %}
+            {% if detail %}
+            <th scope="row">{{detail.name}}</th>
+            <td>{{detail.phone_number}}</td>
+            <td>{{detail.title}}</td>
+            <td>{{detail.due_date}}</td>
+            <td>{{detail.amount}}</td>
+            {% else %}
+            <th scope="row">_</th>
+            <td>_</td>
+            <td>_</td>
+            <td>_</td>
+            <td>_</td>
+            {% endif %}
         </tr>
+        {% endfor %}
       </tbody>
 
-      {% endfor %}
   </table>
 
   {% else %}
-
 
   {% endif %}
 
