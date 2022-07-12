@@ -70,4 +70,4 @@ def signup(request):
     return render(request, 'signup.html')
 
 def activityView(request):
-    return render(request, 'right_menu_template,html', {})
+    return render(request, 'right_menu_template.html', {})
