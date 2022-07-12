@@ -81,6 +81,7 @@ def userPayments(request, pk):
 
 @login_required(login_url='login')
 def userNotifications(request, pk):
+    template_details = {}
     details = {}
     index = 0
     total_books = Book.objects.all()
@@ -111,8 +112,11 @@ def userNotifications(request, pk):
                 # Get information about book requested
                 book = Book.objects.get(id=book_request.book_id.id)
                 details[index]['title'] = book.title
+                details[index]['updated'] = book_request.updated
+                details[index]['due_date'] = book.due_date
             except:
-                details[index] = ''
+                # Terminate user dictionary if it has no book requests
+                details.pop(index)
 
             index += 1
 
