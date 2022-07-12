@@ -6,12 +6,13 @@
     padding: 0;
     position: fixed;
     overflow: auto;
+    border-left: 1px solid rgba(0, 0, 0, 0.175);
   }
   .cards-rp {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 0.5%;
     margin-left: 20px;
     justify-content: space-around;
   }
@@ -19,49 +20,124 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 10%;
+    margin-top: 1%;
   }
 </style>
 
 <div class="rightbar bg-light">
+  {% if user.role.lower == "student" %}
   <div class="cards-rp mt-3">
     <div class="card" style="width: 19rem">
+      <h5 class="card-header">Borrowed book</h5>
       <div class="card-body">
-        <button type="button" class="btn btn-primary">Book status</button>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
+        <button type="button" class="btn btn-primary mb-2">
+          : {{ borrowed_book.status }}
+        </button>
+        <div class="form-group">
+          <label>Title:</label>
+          <input
+            class="form-control bg-light"
+            value="{{ borrowed_book.title }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <label>Author:</label>
+          <input
+            class="form-control bg-light"
+            value="{{ borrowed_book.author }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <label>Category:</label>
+          <input
+            class="form-control bg-light"
+            value="{{ borrowed_book.subject_area }}"
+            readonly
+          />
+        </div>
       </div>
     </div>
-    <div class="card" style="width: 19rem; margin-top: 5%">
+    <div class="card" style="width: 19rem; margin-top: 1%">
+      <h5 class="card-header">librarian contacts</h5>
       <div class="card-body">
-        <p class="card-text">
-          Librarian information, Some quick example text to build on the card
-          title and make up the bulk of the card's content.
-        </p>
+        <div class="form-group">
+          <label>Name:</label>
+          <input
+            class="form-control bg-light"
+            value="{{ librarian.name }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <label>Email:</label>
+          <input
+            class="form-control bg-light"
+            value="{{ librarian.email }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <label>Phone number:</label>
+          <input
+            class="form-control bg-light"
+            value="{{ librarian.phone_number }}"
+            readonly
+          />
+        </div>
       </div>
     </div>
     <div class="cards-row">
       <div class="card" style="width: 9.3rem">
         <div class="card-body">
-          <button type="button" class="btn btn-outline-info w-100">
-            07/12/2022
+          <h6>Due date:</h6>
+          <button type="button" class="btn btn-outline-danger w-100">
+            :{{ borrowed_book.due_date }}
           </button>
         </div>
       </div>
       <div class="card" style="width: 9.3rem; margin-left: 6px">
         <div class="card-body">
-          <button type="button" class="btn btn-outline-info w-100">
+          <h6>Current fine:</h6>
+          <button type="button" class="btn btn-outline-danger w-100">
             ugx: 0
           </button>
         </div>
       </div>
     </div>
     <div class="">
-      <a href="#" class="btn btn-primary" style="width: 19rem; margin-top: 8%">
+      <a
+        href="#"
+        class="btn btn-primary"
+        style="width: 19rem; margin-top: 0.5%"
+      >
         Return book</a
       >
     </div>
   </div>
+  {% endif %} {% if user.role.lower == "admin" %}
+  <div class="cards-rp mt-3">
+    <div class="card" style="width: 19rem">
+      <div class="card-body">
+        <h1 class="d-flex justify-content-center mt-3">{{ users }}</h1>
+        <h4 class="d-flex justify-content-center mt-5">Total student(s)</h4>
+      </div>
+    </div>
+    <div class="card" style="width: 19rem; margin-top: 5%">
+      <div class="card-body">
+        <h1 class="d-flex justify-content-center mt-3">{{ total_books }}</h1>
+        <h4 class="d-flex justify-content-center mt-5">Total book(s)</h4>
+      </div>
+    </div>
+    <div class="card" style="width: 19rem; margin-top: 5%">
+      <div class="card-body">
+        <h1 class="d-flex justify-content-center mt-3">
+          {{ pending_requests }}
+        </h1>
+        <h4 class="d-flex justify-content-center mt-5">Pending requests</h4>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </div>

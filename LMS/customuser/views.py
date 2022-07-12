@@ -8,8 +8,20 @@ from library_books.models import Book, Request
 @login_required(login_url='login')
 def userProfile(request, pk):
     user = CustomUser.objects.get(id=pk)
+    total_books = Book.objects.all()
+    users = CustomUser.objects.all()
+    pending_requests = Request.objects.filter(status="Pending")
+    librarian = CustomUser.objects.get(role__icontains="Admin")
+    borrowed_book = Book.objects.filter(borrower_id=user.id)
 
-    context = {'user': user}
+    context = {
+        'user': user,
+        'users': users.count(),
+        'total_books': total_books.count(),
+        'pending_requests': pending_requests.count(),
+        'librarian': librarian,
+        'borrowed_book': borrowed_book
+    }
     return render(request, 'customuser/profile_template.html', context)
 
 
@@ -17,6 +29,11 @@ def userProfile(request, pk):
 def userPayments(request, pk):
     details = {}  # Main dictionary containing all others
     index = 0  # Counter
+    total_books = Book.objects.all()
+    users = CustomUser.objects.all()
+    pending_requests = Request.objects.filter(status="Pending")
+    librarian = CustomUser.objects.get(role__icontains="Admin")
+    borrowed_book = Book.objects.filter(borrower_id=user.id)
 
     try:  # Get all users
         students = CustomUser.objects.all()
@@ -50,7 +67,14 @@ def userPayments(request, pk):
 
             index += 1
 
-    context = {'details': details}
+    context = {
+        'details': details,
+        'users': users.count(),
+        'total_books': total_books.count(),
+        'pending_requests': pending_requests.count(),
+        'librarian': librarian,
+        'borrowed_book': borrowed_book
+    }
 
     return render(request, 'customuser/payments_template.html', context)
 
@@ -59,6 +83,11 @@ def userPayments(request, pk):
 def userNotifications(request, pk):
     details = {}
     index = 0
+    total_books = Book.objects.all()
+    users = CustomUser.objects.all()
+    pending_requests = Request.objects.filter(status="Pending")
+    librarian = CustomUser.objects.get(role__icontains="Admin")
+    borrowed_book = Book.objects.filter(borrower_id=user.id)
 
     try:
         students = CustomUser.objects.all()
@@ -87,8 +116,16 @@ def userNotifications(request, pk):
 
             index += 1
 
-    context = {'details': details}
+    context = {
+        'details': details,
+        'users': users.count(),
+        'total_books': total_books.count(),
+        'pending_requests': pending_requests.count(),
+        'librarian': librarian,
+        'borrowed_book': borrowed_book
+    }
     return render(request, 'customuser/notifications_template.html', context)
+
 
 def home(request):
     return render(request, "home.html", {})

@@ -19,7 +19,7 @@
       />
       <p class="mt-2 mb-2"><strong>@{{user.username}}</strong></p>
     </div>
-    <a href="{% url 'dashboard' %}"
+    <a href="{% url 'dashboard' user.id %}"
       ><i class="bi bi-speedometer2"></i> Dashboard</a
     >
     <a href="{% url 'profile' user.id %}">
@@ -31,7 +31,6 @@
     <a href="{% url 'payments' user.id %}"
       ><i class="bi bi-credit-card"></i> Payments & Fines</a
     >
-    <a href="/books"><i class="bi bi-book"></i> History</a>
     <a href="{% url 'logout' %}"><i class="bi bi-box-arrow-left"></i> Logout</a>
   </div>
 </div>
