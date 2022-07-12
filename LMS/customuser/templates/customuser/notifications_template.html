@@ -7,26 +7,27 @@
 
   {% for detail in details.values %}
     {% if request.user.name == detail.name %}
-    <div class="container-fluid">
-      <div class="card border-info mt-3 bg-light">
-        <div class="card-header">
-          <h4 class="p-2 mb-2" style="text-align: center">
-            <strong>User notifications</strong>
-          </h4>
-        </div>
-
-        <div class="card-body">
+      {% if detail%}
+    
+      <div class="container-fluid p-3 m-1" style="text-align: center;">
+          <h5 class="text-muted"><i class="bi-bell"></i> User notifications</h5>
+          <h4>~ {{user.name}}</h4>
           <h5>Book title: {{detail.title}}</h5>
           <h5>Date Borrowed: {{detail.updated}}</h5>
           <h5>Due Date: {{detail.due_date}}</h5>
-          <h5>Current fine: {{detail.amount}}</h5>
-        </div>
+          <h5>Current fine: {% if detail.amount %} {{detail.amount}} {% else %} 0 UGX {% endif %}</h5>
 
-        <button class="btn btn-primary w-25 m-2">Return Book</button>
+          <button class="btn btn-primary w-25 m-2">Return book</button>
       </div>
-    </div>
-    {% endif %}
 
+      {% else %}
+
+      <h5>You dont have any notifications</h5>
+
+      {% endif %}
+
+    {% endif %}
+  
   {% endfor %}
 
   {% elif request.user.role == 'Admin' %}
