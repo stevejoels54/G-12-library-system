@@ -68,3 +68,6 @@ def signup(request):
         return redirect('/login/')
 
     return render(request, 'signup.html')
+
+def activityView(request):
+    return render(request, 'right_menu_template,html', {})
