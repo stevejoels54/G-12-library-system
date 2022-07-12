@@ -15,48 +15,61 @@ def userProfile(request, pk):
 
 @login_required(login_url='login')
 def userPayments(request, pk):
-    details = {}  # Main dictionary containing all others
-    index = 0  # Counter
+    if request.user.role == 'Admin':
+        details = {}  # Main dictionary containing all others
+        index = 0  # Counter
 
-    try:  # Get all users
-        students = CustomUser.objects.all()
-    except:
-        return HttpResponse('No students yet')
+        try:  # Get all users
+            students = CustomUser.objects.all()
+        except:
+            return HttpResponse('No students yet')
 
-    for student in students:
-        if student.role == 'Student':
-            details[index] = {}  # Initialize individual student dictionaries
-            try:
-                # Access keys inside inner dictionaries
-                details[index]['name'] = student.name
-                details[index]['phone_number'] = student.phone_number
-            except:
-                details[index]['name'] = ''
-                details[index]['phone_number'] = ''
+        for student in students:
+            if student.role == 'Student':
+                # Initialize individual student dictionaries
+                details[index] = {}
+                try:
+                    # Access keys inside inner dictionaries
+                    details[index]['name'] = student.name
+                    details[index]['phone_number'] = student.phone_number
+                except:
+                    details[index]['name'] = ''
+                    details[index]['phone_number'] = ''
 
-            try:
-                book = Book.objects.get(borrower_id=student.id)
-                details[index]['title'] = book.title
-                details[index]['due_date'] = book.due_date
-            except:
-                details[index]['title'] = ''
-                details[index]['due_date'] = ''
+                try:
+                    book = Book.objects.get(borrower_id=student.id)
+                    details[index]['title'] = book.title
+                    details[index]['due_date'] = book.due_date
+                except:
+                    details[index]['title'] = ''
+                    details[index]['due_date'] = ''
 
-            try:
-                payment = UserPayment.objects.get(payer=student.id)
-                details[index]['amount'] = payment.amount
-            except:
-                details[index] = ''  # Make whole index dictionary empty
+                try:
+                    payment = UserPayment.objects.get(payer=student.id)
+                    details[index]['amount'] = payment.amount
+                except:
+                    # Terminte entry if no payment exists
+                    details.pop(index)
 
-            index += 1
+                index += 1
+        context = {'details': details}
 
-    context = {'details': details}
+    else:
+        student = CustomUser.objects.get(id=pk)
+        try:
+            book = Book.objects.get(borrower_id=student.id)
+            payment = UserPayment.objects.get(payer=student.id)
+        except:
+            payment = ''
+
+        context = {'payment': payment, 'book': book}
 
     return render(request, 'customuser/payments_template.html', context)
 
 
 @login_required(login_url='login')
 def userNotifications(request, pk):
+    template_details = {}
     details = {}
     index = 0
 
@@ -82,13 +95,17 @@ def userNotifications(request, pk):
                 # Get information about book requested
                 book = Book.objects.get(id=book_request.book_id.id)
                 details[index]['title'] = book.title
+                details[index]['updated'] = book_request.updated
+                details[index]['due_date'] = book.due_date
             except:
-                details[index] = ''
+                # Terminate user dictionary if it has no book requests
+                details.pop(index)
 
             index += 1
 
     context = {'details': details}
     return render(request, 'customuser/notifications_template.html', context)
+
 
 def home(request):
     return render(request, "home.html", {})

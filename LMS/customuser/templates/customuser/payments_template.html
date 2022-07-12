@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{% if request.user.role == 'Admin'%}
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg bg-light p-2 mb-2 mt-3">
     <h4 class="navbar-brand m-2"><strong>Books and payments information</strong></h4>
@@ -10,7 +11,6 @@
           <button class="btn btn-outline-primary" type="submit">Search</button>
       </div>
   </nav>
-  {% if request.user.role == 'Admin'%}
 
   <table class="table table-bordered bg-light">
     <thead>
@@ -44,9 +44,36 @@
 
   </table>
 
-  {% else %}
+{% else %}
 
-  {% endif %}
+<div class="container-fluid">
+  <div class="card border-info mt-3 bg-light">
+    <div class="card-header">
+      <h4 class="p-2 mb-2" style="text-align: center">
+        <strong>Payment details</strong>
+      </h4>
+    </div>
+
+    {% if payment %}
+    <div class="card-body">
+      <h5>Book title: {{book.title}}</h5>
+      <h5>Date Borrowed: {{book.updated}}</h5>
+      <h5>Due Date: {{book.due_date}}</h5>
+      <h5>Current fine: {{payment.amount}}</h5>
+    </div>
+
+    <button class="btn btn-danger w-25 m-2">Pay fine</button>
+    
+    {% else %}
+    <div class="card-body">
+      <h5>You dont have any pending payments.</h5>
+    </div>
+    
+    {% endif %}
+  </div>
+</div>
+
+{% endif %}
 
 </div>
 
