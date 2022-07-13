@@ -29,6 +29,7 @@ def userProfile(request, pk):
 def userPayments(request, pk):
     details = {}  # Main dictionary containing all others
     index = 0  # Counter
+    user = CustomUser.objects.get(id=pk)
     total_books = Book.objects.all()
     users = CustomUser.objects.all()
     pending_requests = Request.objects.filter(status="Pending")
@@ -83,6 +84,7 @@ def userPayments(request, pk):
 def userNotifications(request, pk):
     details = {}
     index = 0
+    user = CustomUser.objects.get(id=pk)
     total_books = Book.objects.all()
     users = CustomUser.objects.all()
     pending_requests = Request.objects.filter(status="Pending")
