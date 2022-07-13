@@ -70,27 +70,23 @@ def signup(request):
         context["name"] = name
         context["email"] = email
         context["phone_number"] = phone_number
+        context["confirm_password"] = confirm_password
         context["role"] = role
         context["sex"] = sex
         context["date_of_birth"] = date_of_birth
         context["date_joined"] = datetime.now()
         context["username"] = username
         context["is_active"] = True
-
-        if (password != confirm_password):
-            messages.error(request, "Password should match confirm password")
-
+        context["password"] = make_password(password)
+        new_user = signupForm(context)
+        if new_user.is_valid():
+            new_user.save()
+            messages.success(request, "User created successfully")
+            return redirect("/login/")
         else:
-            context["password"] = make_password(password)
-            new_user = signupForm(context)
-            if new_user.is_valid():
-                new_user.is_active = True
-                new_user.save()
-                messages.success(request, "User created successfully")
-                return redirect("/login/")
-            else:
-                messages.error(request, new_user.errors)
-                print(new_user.errors)
+            context["password"] = password
+            messages.error(request, new_user.errors)
+            return render(request, "signup.html", context)
     return render(request, 'signup.html')
 
 
