@@ -72,15 +72,9 @@
         <div class="card w-50 mt-2 shadow-lg">
           <div class="card-header">Signup</div>
           <div class="card-body">
-            {% if messages %}
-            <ul class="messages">
-              {% for message in messages %}
-              <li {% if message.tags %} class="invalid" {% endif %}>
-                {{ message }}
-              </li>
-              {% endfor %}
-            </ul>
-            {% endif %}
+            {% if messages %} {% for message in messages %}
+            <div class="invalid">{{ message }}</div>
+            {%endfor%} {%endif%}
             <form
               action="."
               method="POST"
@@ -153,6 +147,7 @@
                       id="phone_number"
                       name="phone_number"
                       value="{{ phone_number }}"
+                      placeholder="eg. 077*******"
                       required
                     />
                   </div>
