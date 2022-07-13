@@ -1,25 +1,15 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'customuser/custom_card.html'%}
+{% load static %}
 
-<div class="container-fluid">
-  <div class="card border-info mt-3 bg-light">
-    <div class="card-header">
-      <h4 class="p-2 mb-2" style="text-align: center">
-        <strong>User profile settings</strong>
-      </h4>
-    </div>
+{% block custom_content %}
 
-    <div class="card-body">
-      <p>Student ID: {{request.user.id}}</p>
-      <p>Name: {{user.username}}</p>
-      <p>Sex: {{user.sex}}</p>
-      <p>Email: {{user.email}}</p>
-      <p>Date of birth: {{user.date_of_birth}}</p>
-      <p>Phone number: {{user.phone_number}}</p>
-      <p>Role: {{user.role}}</p>
-    </div>
-
-    <button class="btn btn-primary w-25 m-2">Update details</button>
-  </div>
+<div class="" style="text-align: center;">
+  <img src="{% static '/images/profile.png'%}" height="200" width="200" style="border-radius: 50%" class="m-2"/>
+  <h5 class="text-muted"><i class="bi-person"></i> {{user.role}}</h5>
+  <h4>~ {{user.name}}</h4>
+  <h4><i class="bi-envelope"></i> {{user.email}}</h4>
+  <h4><i class="bi-telephone"></i> 0{{user.phone_number}}</h4>
+  <h4><i class="bi-calendar-event"></i> Joined: {{user.date_joined | timesince }} ago.</h4>
 </div>
 
 {% endblock %}

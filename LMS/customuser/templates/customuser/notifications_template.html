@@ -4,11 +4,31 @@
 
 <div class="container-fluid">
   {% if request.user.role == 'Student' %}
+
+  {% for detail in details.values %}
+    {% if request.user.name == detail.name %}
+      {% if detail%}
+    
+      <div class="container-fluid p-3 m-1" style="text-align: center;">
+          <h5 class="text-muted"><i class="bi-bell"></i> User notifications</h5>
+          <h4>~ {{user.name}}</h4>
+          <h5>Book title: {{detail.title}}</h5>
+          <h5>Date Borrowed: {{detail.updated}}</h5>
+          <h5>Due Date: {{detail.due_date}}</h5>
+          <h5>Current fine: {% if detail.amount %} {{detail.amount}} {% else %} 0 UGX {% endif %}</h5>
+
+          <button class="btn btn-primary w-25 m-2">Return book</button>
+      </div>
+
+      {% else %}
+
+      <h5>You dont have any notifications</h5>
+
+      {% endif %}
+
+    {% endif %}
   
-  <p>Dear, {{user.name}} you borrowed <strong>{{book.title}}</strong>
-    on <strong>{{book.updated}}</strong> and are requested to return 
-    it before <strong>{{book.due_date}}</strong>.
-  </p>
+  {% endfor %}
 
   {% elif request.user.role == 'Admin' %}
 
@@ -32,8 +52,8 @@
         </tr>
         
         <tbody>
-          <tr>
           {% for detail in details.values %}
+          <tr>
             {% if detail %}
             <th scope="row">{{detail.name}}</th>
             <td>{{detail.phone_number}}</td>
@@ -63,8 +83,8 @@
               </form>
             </td>
             {% endif %}
-          {% endfor %}
           </tr>
+          {% endfor %}
         </tbody>
 
     </table>

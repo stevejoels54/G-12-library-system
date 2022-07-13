@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{% if request.user.role == 'Admin'%}
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg bg-light p-2 mb-2 mt-3">
     <h4 class="navbar-brand m-2"><strong>Books and payments information</strong></h4>
@@ -10,7 +11,6 @@
           <button class="btn btn-outline-primary" type="submit">Search</button>
       </div>
   </nav>
-  {% if request.user.role == 'Admin'%}
 
   <table class="table table-bordered bg-light">
     <thead>
@@ -44,10 +44,41 @@
 
   </table>
 
+{% else %}
+
+<div class="container-fluid p-3 m-1" style="text-align: center;">
+  {% if payment %}
+
+    <h5 class="text-muted"><i class="bi-credit-card"></i> Payment information</h5>
+    <h4>~ {{user.name}}</h4>
+    <h5>Book title: {{book.title}}</h5>
+    <h5>Date Borrowed: {{book.updated}}</h5>
+    <h5>Due Date: {{book.due_date}}</h5>
+    <h5>Current fine: {{payment.amount}}</h5>
+
+    <button class="btn btn-danger w-25 m-2">Pay fine</button>
+
   {% else %}
 
-  {% endif %}
+  <h5>You dont have any pending payments</h5>
 
+  {% endif %}
+  <div class="base-in">
+    <div class="shadow p-3 m-2 rounded">
+      <h4>Total books borrowed:</h4>
+      <h4 class="text-primary"><i class="bi-book"></i> 2 Books </h4>
+    </div>
+    <div class="shadow p-3 m-2 rounded">
+      <h4>Amount paid in fines:</h4>
+      <h4 class="text-danger"><i class="bi-cash-coin"></i> 15,000 UGX </h4>
+    </div>
+    <div class="shadow p-3 m-2 rounded">
+      <h4>Last login:</h4>
+      <h4 class="text-secondary"><i class="bi-box-arrow-in-right"></i> {{user.last_login | timesince }} ago</h4>
+    </div>
+  </div>
 </div>
+
+{% endif %}
 
 {% endblock %}
