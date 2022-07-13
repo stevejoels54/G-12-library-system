@@ -54,6 +54,7 @@ def loginView(request):
 
 
 def signup(request):
+    context = {}
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
