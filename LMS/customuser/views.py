@@ -75,7 +75,8 @@ def userPayments(request, pk):
         'pending_requests': pending_requests.count(),
         'librarian': librarian,
         'borrowed_book': borrowed_book,
-        'payment': payment, 'book': book
+        'payment': payment,
+        'book': book
     }
 
     return render(request, 'customuser/payments_template.html', context)

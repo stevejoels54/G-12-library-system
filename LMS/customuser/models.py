@@ -10,16 +10,18 @@ class CustomUser(AbstractUser):
     phone_number = models.BigIntegerField()
     sex = models.CharField(max_length=10, null=True)
     role = models.CharField(max_length=20, default='Student')
+    is_active = models.BooleanField(default=True)
 
-    REQUIRED_FIELDS = ['name', 'email', 'sex', 'role', 'phone_number']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name', 'sex', 'role', 'phone_number']
 
     def __str__(self):
-        return self.name
+        return self.email
 
 
 class UserPayment(models.Model):
-    payee_book = models.ForeignKey(
-        'library_books.Book', on_delete=models.CASCADE)
+    payee_book = models.ForeignKey('library_books.Book',
+                                   on_delete=models.CASCADE)
     payer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
