@@ -14,10 +14,14 @@ def dashboard(request, pk):
     books = Book.objects.filter(status="Available")
     user = CustomUser.objects.get(id=pk)
     total_books = Book.objects.all()
-    users = CustomUser.objects.all()
+    users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
-    borrowed_book = Book.objects.filter(borrower_id=user.id)
+    if request.user.role == 'Student':
+        borrowed_book = Book.objects.get(borrower_id=user.id)
+    else:
+        borrowed_book = ''
+
     if user.role.lower() == 'student':
         context = {
             'books': books,
