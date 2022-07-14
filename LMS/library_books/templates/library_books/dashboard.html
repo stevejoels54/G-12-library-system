@@ -26,7 +26,10 @@
           <h5 class="card-title">{{book.title}}</h5>
           <h6 class="card-text">Author: {{book.author}}</h6>
           <h6 class="card-text">Category: {{book.subject_area}}</h6>
-          <a href="#" class="btn btn-primary">Borrow</a>
+          <form action="{% url 'borrow_book' book.id user.id %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-primary" type="submit">Borrow</button>
+          </form>
         </div>
       </div>
     </div>

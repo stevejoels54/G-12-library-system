@@ -28,10 +28,7 @@
   <body>
     <div>
       <div>
-        <nav
-          class="navbar sticky-top navbar-dark"
-          style="background-color: #6495ed"
-        >
+        <nav class="navbar sticky-top bg-light">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">
               {% load static %}
@@ -78,12 +75,12 @@
             >
               {% csrf_token %}
               <div class="form-group">
-                <label for="email">User name:</label>
+                <label for="email">Email:</label>
                 <input
                   class="form-control"
-                  value="{{ username }}"
+                  value="{{ email }}"
                   id="email"
-                  name="username"
+                  name="email"
                   required
                 />
                 <div class="invalid-feedback">Please fill out this field.</div>

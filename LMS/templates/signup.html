@@ -39,10 +39,7 @@
   <body>
     <div>
       <div>
-        <nav
-          class="navbar sticky-top navbar-dark"
-          style="background-color: #6495ed"
-        >
+        <nav class="navbar sticky-top bg-light">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">
               {% load static %}
@@ -72,15 +69,9 @@
         <div class="card w-50 mt-2 shadow-lg">
           <div class="card-header">Signup</div>
           <div class="card-body">
-            {% if messages %}
-            <ul class="messages">
-              {% for message in messages %}
-              <li {% if message.tags %} class="invalid" {% endif %}>
-                {{ message }}
-              </li>
-              {% endfor %}
-            </ul>
-            {% endif %}
+            {% if messages %} {% for message in messages %}
+            <div class="invalid">{{ message }}</div>
+            {%endfor%} {%endif%}
             <form
               action="."
               method="POST"
@@ -97,6 +88,16 @@
                       id="name"
                       name="name"
                       value="{{ name }}"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Username:</label>
+                    <input
+                      class="form-control"
+                      id="username"
+                      name="username"
+                      value="{{ username }}"
                       required
                     />
                   </div>
@@ -143,6 +144,7 @@
                       id="phone_number"
                       name="phone_number"
                       value="{{ phone_number }}"
+                      placeholder="eg. 2567******"
                       required
                     />
                   </div>
@@ -159,8 +161,8 @@
                       <option value="" selected disabled>
                         Please select role
                       </option>
-                      <option value="student">Student</option>
-                      <option value="admin">Administrator</option>
+                      <option value="Student">Student</option>
+                      <option value="Administrator">Administrator</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -176,8 +178,8 @@
                       <option value="" selected disabled>
                         Please select sex
                       </option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
                     </select>
                   </div>
                   <div class="date form-group" data-provide="datepicker">
