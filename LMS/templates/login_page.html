@@ -78,12 +78,12 @@
             >
               {% csrf_token %}
               <div class="form-group">
-                <label for="email">User name:</label>
+                <label for="email">Email:</label>
                 <input
                   class="form-control"
-                  value="{{ username }}"
+                  value="{{ email }}"
                   id="email"
-                  name="username"
+                  name="email"
                   required
                 />
                 <div class="invalid-feedback">Please fill out this field.</div>

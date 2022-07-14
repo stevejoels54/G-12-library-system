@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Book, Request
 from customuser.models import CustomUser
@@ -61,3 +61,16 @@ def dashboard(request, pk):
             context['books'] = books
             return render(request, 'library_books/dashboard.html', context)
     return render(request, "library_books/dashboard.html", context)
+
+
+@login_required(login_url='/login/')
+def borrowBook(request, book, pk):
+    context = {}
+    book = Book.objects.get(id=book)
+    if request.method == "POST":
+        """ book.borrower = user
+            book.status = "Borrowed"
+            book.save() """
+        print("Book id is: ", book.title)
+        return redirect("/dashboard/" + pk)
+    return render(request, 'library_books/dashboard.html', context)
