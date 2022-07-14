@@ -12,9 +12,9 @@ def userProfile(request, pk):
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
-    if request.user.role == 'Student':
+    try:
         borrowed_book = Book.objects.get(borrower_id=user.id)
-    else:
+    except:
         borrowed_book = ''
 
     context = {
@@ -35,9 +35,9 @@ def userPayments(request, pk):
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
-    if request.user.role == 'Student':
+    try:
         borrowed_book = Book.objects.get(borrower_id=user.id)
-    else:
+    except:
         borrowed_book = ''
 
     if request.user.role == 'Admin':
@@ -111,9 +111,9 @@ def userNotifications(request, pk):
     user = CustomUser.objects.get(id=pk)
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
-    if request.user.role == 'Student':
+    try:
         borrowed_book = Book.objects.get(borrower_id=user.id)
-    else:
+    except:
         borrowed_book = ''
 
     try:
