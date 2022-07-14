@@ -85,6 +85,7 @@ def userPayments(request, pk):
             book = Book.objects.get(borrower_id=student.id)
             payment = UserPayment.objects.get(payer=student.id)
         except:
+            # Sort payment error
             payment = ''
             book = ''
 
