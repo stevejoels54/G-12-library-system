@@ -66,6 +66,7 @@ def userPayments(request, pk):
                     details[index]['title'] = book.title
                     details[index]['due_date'] = book.due_date
                 except:
+                    book = ''
                     details[index]['title'] = ''
                     details[index]['due_date'] = ''
 
@@ -74,6 +75,7 @@ def userPayments(request, pk):
                     details[index]['amount'] = payment.amount
                 except:
                     # Terminate entry if no payment exists
+                    payment = ''
                     details.pop(index)
 
                 index += 1

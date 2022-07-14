@@ -1,47 +1,43 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="container-fluid">
-  {% if request.user.role == 'Student' %}
+  {% if request.user.role == 'Student' %} {% for detail in details.values %}
+  {%if request.user.name == detail.name%} {% if detail %}
 
-  {% for detail in details.values %}
-    {% if request.user.name == detail.name %}
-      {% if detail%}
-    
-      <div class="container-fluid p-3 m-1" style="text-align: center;">
-          <h5 class="text-muted"><i class="bi-bell"></i> User notifications</h5>
-          <h4>~ {{user.name}}</h4>
-          <h5>Book title: {{detail.title}}</h5>
-          <h5>Date Borrowed: {{detail.updated}}</h5>
-          <h5>Due Date: {{detail.due_date}}</h5>
-          <h5>Current fine: {% if detail.amount %} {{detail.amount}} {% else %} 0 UGX {% endif %}</h5>
+  <div class="container-fluid p-3 m-1" style="text-align: center">
+    <h5 class="text-muted"><i class="bi-bell"></i> User notifications</h5>
+    <h4>~ {{user.name}}</h4>
+    <h5>Book title: {{detail.title}}</h5>
+    <h5>Date Borrowed: {{detail.updated}}</h5>
+    <h5>Due Date: {{detail.due_date}}</h5>
+    <h5>
+      Current fine: {% if detail.amount %} {{detail.amount}} {% else %} 0 UGX {%
+      endif %}
+    </h5>
 
-          <button class="btn btn-primary w-25 m-2">Return book</button>
-      </div>
+    <button class="btn btn-primary w-25 m-2">Return book</button>
+  </div>
 
-      {% else %}
+  {% endif %}
 
-      <h5>You dont have any notifications</h5>
+  <h5>You dont have any notifications</h5>
 
-      {% endif %}
-
-    {% endif %}
-  
-  {% endfor %}
-
-  {% elif request.user.role == 'Admin' %}
+  {% endif %} {% endif %} {% endfor %} {% elif request.user.role == 'Admin' %}
 
   <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg p-2 mb-2 mt-3">
+    <nav class="navbar navbar-expand-lg bg-light p-2 mb-2 mt-3">
       <h4 class="navbar-brand m-2"><strong>Pending book requests</strong></h4>
-        <div class="container-fluid justify-content-center">
-            <input class="form-control me-2" type="search" placeholder="Search pending requests"/>
-            <button class="btn btn-outline-primary" type="submit">Search</button>
-        </div>
+      <div class="container-fluid justify-content-center">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search pending requests"
+        />
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </div>
     </nav>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered bg-light">
       <thead>
         <tr>
           <th scope="col">Name</th>
@@ -50,49 +46,55 @@
           <th scope="col">Time requested</th>
           <th scope="col">Actions</th>
         </tr>
-        
-        <tbody>
-          {% for detail in details.values %}
-          <tr>
-            {% if detail %}
-            <th scope="row">{{detail.name}}</th>
-            <td>{{detail.phone_number}}</td>
-            <td>{{detail.title}}</td>
-            <td>{{detail.time_created}}</td>
-            <td>
-              <form method="POST" action="">
-                {% csrf_token %}
-                <div class="btn-group justify-content-center" role="group">
-                  <button type="submit" class="btn btn-outline-primary">Accept</button>
-                  <button type="submit" class="btn btn-outline-danger">Decline</button>
-                </div>
-              </form>
-            </td>
-            {% else %}
-            <th scope="row">_</th>
-            <td>_</td>
-            <td>_</td>
-            <td>_</td>
-            <td>
-              <form method="POST" action="">
-                {% csrf_token %}
-                <div class="btn-group justify-content-center" role="group">
-                  <button type="submit" class="btn btn-outline-primary">Accept</button>
-                  <button type="submit" class="btn btn-outline-danger">Decline</button>
-                </div>
-              </form>
-            </td>
-            {% endif %}
-          </tr>
-          {% endfor %}
-        </tbody>
+      </thead>
 
+      <tbody>
+        {% for detail in details.values %}
+        <tr>
+          {% if detail %}
+          <th scope="row">{{detail.name}}</th>
+          <td>{{detail.phone_number}}</td>
+          <td>{{detail.title}}</td>
+          <td>{{detail.time_created}}</td>
+          <td>
+            <form method="POST" action="">
+              {% csrf_token %}
+              <div class="btn-group justify-content-center" role="group">
+                <button type="submit" class="btn btn-outline-primary">
+                  Accept
+                </button>
+                <button type="submit" class="btn btn-outline-danger">
+                  Decline
+                </button>
+              </div>
+            </form>
+          </td>
+          {% else %}
+          <th scope="row">_</th>
+          <td>_</td>
+          <td>_</td>
+          <td>_</td>
+          <td>
+            <form method="POST" action="">
+              {% csrf_token %}
+              <div class="btn-group justify-content-center" role="group">
+                <button type="submit" class="btn btn-outline-primary">
+                  Accept
+                </button>
+                <button type="submit" class="btn btn-outline-danger">
+                  Decline
+                </button>
+              </div>
+            </form>
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
-
   </div>
 
   {% endif %}
-
 </div>
 
 {% endblock %}
