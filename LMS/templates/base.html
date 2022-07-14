@@ -28,7 +28,7 @@
     <style>
       .base-container {
         display: grid;
-        grid-template-columns: 0.7fr 3.1fr 1.2fr;
+        grid-template-columns: 0.7fr 3fr 1.2fr;
       }
       
       .base-in {
@@ -37,7 +37,6 @@
       }
       body {
         font-family: "Nunito", sans-serif;
-        font-size: 18px;
       }
 
       .sidebar {
@@ -47,7 +46,6 @@
         height: 100vh;
         position: fixed;
         overflow: auto;
-        border-right: 1px solid rgba(0, 0, 0, 0.175);
       }
 
       .sidebar a {
@@ -96,6 +94,27 @@
     </style>
   </head>
   <body>
+    <nav class="navbar navbar-expand mt-3">
+      <div class="container-fluid bg-light" style="position: fixed; z-index: 1000;">
+        <div class="container-fluid mb-2">
+          <a href="/" class="navbar-brand link-dark">
+            <img
+              src="{% static '/images/liblogo1.png' %}"
+              alt=""
+              width="30"
+              height="30"
+              class="d-inline-block align-text-top"/>
+            Library Management System
+          </a>
+        </div>
+        
+        <form class="d-flex" method="GET" action="{% url 'home' %}">
+          <input class="form-control me-2" type="search" name="q" placeholder="Search books" />
+          <button class="btn btn-sm btn-primary" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
     <div class="base-container">
       <div class="content">{% include 'left_menu_template.html' %}</div>
 
