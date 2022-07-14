@@ -1,22 +1,5 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 <div class="container-fluid w-100">
-  <nav
-    class="navbar navbar-expand bg-light"
-    style="position: fixed; z-index: 1000; width: 55.8%; top: 0; left: 17%"
-  >
-    <div class="container-fluid justify-content-center">
-      <form class="d-flex w-100" action="." method="POST" autocomplete="off">
-        {% csrf_token %}
-        <input
-          class="form-control me-2"
-          id="value"
-          name="value"
-          placeholder="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </nav>
   <style>
     .books-container {
       display: flex;
@@ -26,15 +9,14 @@
     }
     .cards {
       width: 25.6%;
-      margin-right: 10px;
-      margin: 27px;
+      margin: 28.5px;
       margin-bottom: 10px;
     }
   </style>
   <div class="books-container">
     {% if books %} {% for book in books %}
     <div class="cards">
-      <div class="card" style="width: 18rem height: 10%">
+      <div class="card" style="width: 15rem">
         <img
           src="{% static '/images/imagebook1.jpeg' %}"
           class="card-img-top"
@@ -52,7 +34,6 @@
     <h1 class="d-flex justify-content-center mt-5 ml-5">No books found...</h1>
     {% endif %}
   </div>
-  <div class="mt-5"></div>
 </div>
 
 {% endblock %}
