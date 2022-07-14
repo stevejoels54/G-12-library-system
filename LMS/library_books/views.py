@@ -21,45 +21,25 @@ def dashboard(request, pk):
         borrowed_book = Book.objects.get(borrower_id=user.id)
     except:
         borrowed_book = ''
+    context = {
+        'books': books,
+        'user': user,
+        'users': users.count(),
+        'total_books': total_books.count(),
+        'pending_requests': pending_requests.count(),
+        'librarian': librarian,
+        'borrowed_book': borrowed_book
+    }
 
     if user.role.lower() == 'student':
-        context = {
-            'books': books,
-            'user': user,
-            'users': users.count(),
-            'total_books': total_books.count(),
-            'pending_requests': pending_requests.count(),
-            'librarian': librarian,
-            'borrowed_book': borrowed_book
-        }
-        if request.method == "POST":
-            value = request.POST.get("value")
-            books = Book.objects.filter(
-                title__icontains=value) | Book.objects.filter(
-                    author__icontains=value) | Book.objects.filter(
-                        subject_area__icontains=value)
-            context['books'] = books
-            return render(request, 'library_books/dashboard.html', context)
+        books = Book.objects.filter(status="Available")
+        context['books'] = books
+        return render(request, 'library_books/dashboard.html', context)
 
     elif user.role.lower() == 'admin':
-        books = Book.objects.filter(status="Available")
-        context = {
-            'books': books,
-            'user': user,
-            'users': users.count(),
-            'total_books': total_books.count(),
-            'pending_requests': pending_requests.count(),
-            'librarian': librarian,
-            'borrowed_book': borrowed_book
-        }
-        if request.method == "POST":
-            value = request.POST.get("value")
-            books = Book.objects.filter(
-                title__icontains=value) | Book.objects.filter(
-                    author__icontains=value) | Book.objects.filter(
-                        subject_area__icontains=value)
-            context['books'] = books
-            return render(request, 'library_books/dashboard.html', context)
+        books = Book.objects.all()
+        context['books'] = books
+        return render(request, 'library_books/dashboard.html', context)
     return render(request, "library_books/dashboard.html", context)
 
 
@@ -73,4 +53,50 @@ def borrowBook(request, book, pk):
             book.save() """
         print("Book id is: ", book.title)
         return redirect("/dashboard/" + pk)
+    return render(request, 'library_books/dashboard.html', context)
+
+
+@login_required(login_url='/login/')
+def searchBook(request):
+    context = {}
+    userID = request.user.id
+    user = CustomUser.objects.get(id=userID)
+    books = Book.objects.filter(status="Available")
+    total_books = Book.objects.all()
+    users = CustomUser.objects.filter(role='Student')
+    pending_requests = Request.objects.filter(status="Pending")
+    librarian = CustomUser.objects.get(role__icontains="Admin")
+    try:
+        borrowed_book = Book.objects.get(borrower_id=userID)
+    except:
+        borrowed_book = ''
+    query = request.GET.get('value')
+    context = {
+        'books': books,
+        'user': user,
+        'users': users.count(),
+        'total_books': total_books.count(),
+        'pending_requests': pending_requests.count(),
+        'librarian': librarian,
+        'borrowed_book': borrowed_book
+    }
+    if request.method == "GET":
+        value = request.GET.get("value")
+        if user.role.lower() == 'admin':
+            books = Book.objects.filter(
+                title__icontains=value) | Book.objects.filter(
+                    author__icontains=value) | Book.objects.filter(
+                        subject_area__icontains=value)
+            context['books'] = books
+            return render(request, 'library_books/dashboard.html', context)
+
+        elif user.role.lower() == 'student':
+            books = Book.objects.filter(
+                title__icontains=value) | Book.objects.filter(
+                    author__icontains=value) | Book.objects.filter(
+                        subject_area__icontains=value)
+            books = books.filter(status="Available")
+            context['books'] = books
+            return render(request, 'library_books/dashboard.html', context)
+
     return render(request, 'library_books/dashboard.html', context)

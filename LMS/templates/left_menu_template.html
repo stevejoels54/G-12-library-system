@@ -8,23 +8,18 @@
 
 <div class="sidebar mt-3 bg-light">
   <div>
-    <!--div class="container-fluid text-center">
-      {% load static %}
-      <img
-        class="rounded-circle mt-3"
-        src="{% static '/images/liblogo1.png' %}"
-        alt=""
-        width="70"
-        height="70"
-      />
-      <p class="mt-2 mb-2"><strong>@{{user.username}}</strong></p>
-    </div-->
     <a href="{% url 'dashboard' user.id %}"
       ><i class="bi bi-speedometer2"></i> Dashboard</a
     >
+    {% if user.role == "Admin" %}
+    <a href="{% url 'notifications' user.id %}"
+      ><i class="bi bi-book"></i> Requests</a
+    >
+    {% else %}
     <a href="{% url 'notifications' user.id %}"
       ><i class="bi bi-bell"></i> Notifications</a
     >
+    {% endif %}
     <a href="{% url 'payments' user.id %}"
       ><i class="bi bi-credit-card"></i> Payments</a
     >

@@ -1,0 +1,27 @@
+{% load static %}
+<nav class="navbar navbar-expand mt-3">
+  <div class="container-fluid bg-light" style="position: fixed; z-index: 1000">
+    <div class="container-fluid mb-2">
+      <a href="/" class="navbar-brand link-dark">
+        <img
+          src="{% static '/images/liblogo1.png' %}"
+          alt=""
+          width="30"
+          height="30"
+          class="d-inline-block align-text-top"
+        />
+        Library Management System
+      </a>
+    </div>
+
+    <form class="d-flex w-50" method="GET" action="{% url 'searchbook'%}">
+      <input
+        class="form-control me-2"
+        type="search"
+        name="value"
+        placeholder="Search books"
+      />
+      <button class="btn btn-sm btn-primary" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
