@@ -7,9 +7,13 @@ from customuser.models import CustomUser
 from library_books.models import Book, Request
 from .forms import signupForm
 from datetime import datetime
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 
 global user
+
+
+def confirmPassword():
+    global confirm_password
 
 
 def getUser(request, pk):
@@ -77,12 +81,21 @@ def signup(request):
         context["date_joined"] = datetime.now()
         context["username"] = username
         context["is_active"] = True
-        context["password"] = make_password(password)
+        context["password"] = password
         new_user = signupForm(context)
+
         if new_user.is_valid():
-            new_user.save()
-            messages.success(request, "User created successfully")
-            return redirect("/login/")
+            if password == confirm_password:
+                print("Password matches")
+                context["password"] = make_password(password)
+                new_user = signupForm(context)
+                new_user.save()
+                messages.success(request, "User created successfully")
+                return redirect('/login')
+            else:
+                print("Password does not match")
+                messages.error(request, "Passwords do not match")
+                return render(request, "signup.html", context)
         else:
             context["password"] = password
             messages.error(request, new_user.errors)
