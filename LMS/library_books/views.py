@@ -17,9 +17,9 @@ def dashboard(request, pk):
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
-    if request.user.role == 'Student':
+    try:
         borrowed_book = Book.objects.get(borrower_id=user.id)
-    else:
+    except:
         borrowed_book = ''
 
     if user.role.lower() == 'student':
