@@ -46,14 +46,35 @@ def dashboard(request, pk):
 @login_required(login_url='/login/')
 def borrowBook(request, book, pk):
     context = {}
-    book = Book.objects.get(id=book)
-    if request.method == "POST":
-        """ book.borrower = user
-            book.status = "Borrowed"
-            book.save() """
-        print("Book id is: ", book.title)
-        return redirect("/dashboard/" + pk)
-    return render(request, 'library_books/dashboard.html', context)
+    try:
+        book = Book.objects.get(id=book)
+    except:
+        pass
+    try:
+        user = CustomUser.objects.get(id=pk)
+    except:
+        pass
+    if request.method == "GET":
+        if book.status == "Available":
+            try:
+                borrowed_book = Book.objects.get(borrower_id=user.id)
+            except:
+                borrowed_book = None
+            if borrowed_book is None:
+                book.status = "Pending"
+                book.save()
+                book_request = Request(requester_id=user,
+                                       book_id=book,
+                                       status="Pending")
+                book_request.save()
+                return redirect('/dashboard/' + str(pk))
+            else:
+                print("You have already borrowed a book")
+                return redirect('/dashboard/' + str(pk))
+        else:
+            print("Book is not available")
+            return redirect('/dashboard/' + str(pk))
+    return redirect('/dashboard/' + str(pk))
 
 
 @login_required(login_url='/login/')
