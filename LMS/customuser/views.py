@@ -9,10 +9,36 @@ from library_books.models import Book, Request
 def userProfile(request, pk):
     user = CustomUser.objects.get(id=pk)
     total_books = Book.objects.all()
-    users = CustomUser.objects.all()
+    users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
-    borrowed_book = Book.objects.filter(borrower_id=user.id)
+    if request.user.role == 'Student':
+        borrowed_book = Book.objects.get(borrower_id=user.id)
+    else:
+        borrowed_book = ''
+
+    context = {
+        'users': users.count(),
+        'total_books': total_books.count(),
+        'pending_requests': pending_requests.count(),
+        'librarian': librarian,
+        'borrowed_book': borrowed_book,
+    }
+    return render(request, 'customuser/profile_template.html', context)
+
+
+@login_required(login_url='login')
+def userPayments(request, pk):
+    details = {}
+    user = CustomUser.objects.get(id=pk)
+    total_books = Book.objects.all()
+    users = CustomUser.objects.filter(role='Student')
+    pending_requests = Request.objects.filter(status="Pending")
+    librarian = CustomUser.objects.get(role__icontains="Admin")
+    if request.user.role == 'Student':
+        borrowed_book = Book.objects.get(borrower_id=user.id)
+    else:
+        borrowed_book = ''
 
     if request.user.role == 'Admin':
         details = {}  # Main dictionary containing all others
@@ -81,10 +107,14 @@ def userNotifications(request, pk):
     details = {}
     index = 0
     total_books = Book.objects.all()
-    users = CustomUser.objects.all()
+    users = CustomUser.objects.filter(role='Student')
+    user = CustomUser.objects.get(id=pk)
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
-    borrowed_book = Book.objects.filter(borrower_id=user.id)
+    if request.user.role == 'Student':
+        borrowed_book = Book.objects.get(borrower_id=user.id)
+    else:
+        borrowed_book = ''
 
     try:
         students = CustomUser.objects.all()
