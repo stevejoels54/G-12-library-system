@@ -6,9 +6,9 @@
   }
 </style>
 
-<div class="sidebar bg-light">
+<div class="sidebar mt-3 bg-light">
   <div>
-    <div class="container-fluid text-center">
+    <!--div class="container-fluid text-center">
       {% load static %}
       <img
         class="rounded-circle mt-3"
@@ -18,18 +18,18 @@
         height="70"
       />
       <p class="mt-2 mb-2"><strong>@{{user.username}}</strong></p>
-    </div>
+    </div-->
     <a href="{% url 'dashboard' user.id %}"
       ><i class="bi bi-speedometer2"></i> Dashboard</a
-    >
-    <a href="{% url 'profile' user.id %}">
-      <i class="bi bi-person"></i> Profile</a
     >
     <a href="{% url 'notifications' user.id %}"
       ><i class="bi bi-bell"></i> Notifications</a
     >
     <a href="{% url 'payments' user.id %}"
-      ><i class="bi bi-credit-card"></i> Payments & Fines</a
+      ><i class="bi bi-credit-card"></i> Payments</a
+    >
+    <a href="{% url 'profile' user.id %}">
+      <i class="bi bi-person"></i> Profile</a
     >
     <a href="{% url 'logout' %}"><i class="bi bi-box-arrow-left"></i> Logout</a>
   </div>
