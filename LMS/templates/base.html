@@ -30,7 +30,7 @@
         display: grid;
         grid-template-columns: 0.7fr 3fr 1.2fr;
       }
-      
+
       .base-in {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -94,31 +94,13 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand mt-3">
-      <div class="container-fluid bg-light" style="position: fixed; z-index: 1000;">
-        <div class="container-fluid mb-2">
-          <a href="/" class="navbar-brand link-dark">
-            <img
-              src="{% static '/images/liblogo1.png' %}"
-              alt=""
-              width="30"
-              height="30"
-              class="d-inline-block align-text-top"/>
-            Library Management System
-          </a>
-        </div>
-        
-        <form class="d-flex" method="GET" action="{% url 'home' %}">
-          <input class="form-control me-2" type="search" name="q" placeholder="Search books" />
-          <button class="btn btn-sm btn-primary" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
-
+    <div>{% include 'navbar.html' %}</div>
     <div class="base-container">
       <div class="content">{% include 'left_menu_template.html' %}</div>
 
-      <div class="container-fluid justify-content-center">{% block content %} {% endblock %}</div>
+      <div class="container-fluid justify-content-center">
+        {% block content %} {% endblock %}
+      </div>
 
       <div>{% include 'right_menu_template.html' %}</div>
     </div>
