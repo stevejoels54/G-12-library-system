@@ -64,7 +64,6 @@ def dashboard(request, pk):
             context['books'] = books
             return render(request, 'library_books/dashboard.html', context)
     else:
-        print("Invalid user")
         return redirect('/pageNotFound/')
 
     return render(request, "library_books/dashboard.html", context)
@@ -100,16 +99,12 @@ def borrowBook(request, book, pk):
                         book_request.save()
                         return redirect('/dashboard/' + str(pk))
                     else:
-                        print("You have already borrowed a book")
                         return redirect('/dashboard/' + str(pk))
                 else:
-                    print("Book is not available")
                     return redirect('/dashboard/' + str(pk))
             elif user.role.lower() == 'admin':
-                print("Admin can not borrowed a book")
                 return redirect('/dashboard/' + str(pk))
         else:
-            print("Invalid user or book")
             return redirect('/pageNotFound/')
     return redirect('/dashboard/' + str(pk))
 
@@ -140,7 +135,6 @@ def searchBook(request):
     }
     if request.method == "GET":
         value = request.GET.get("value")
-        print("Value is: ", value)
         if user.role.lower() == 'admin' and value != None:
             books = Book.objects.filter(
                 title__icontains=value) | Book.objects.filter(
