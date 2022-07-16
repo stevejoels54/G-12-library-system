@@ -14,7 +14,7 @@
     }
   </style>
   <div class="books-container">
-    {% if books %} {% for book in books %}
+    {% if user.role == "Student" %} {% if books %} {% for book in books %}
     <div class="cards">
       <div class="card" style="width: 15rem">
         <img
@@ -34,9 +34,59 @@
     </div>
     {% endfor %} {% else %}
     <h1 class="d-flex justify-content-center mt-5 ml-5">No books found...</h1>
+    {% endif %} {% elif user.role == "Admin" %}
+    <div>
+      {% if books %}
+      <table class="table table-bordered table-responsive table-hover w-100">
+        <thead>
+          <tr>
+            <nav class="navbar bg-light">
+              <div class="container-fluid">
+                <a class="navbar-brand">Library Books</a>
+              </div>
+            </nav>
+          </tr>
+          <tr class="mw-100" style="text-align: center; width: 100%">
+            <th scope="col" style="text-align: center; width: 10%">ID</th>
+            <th scope="col" style="text-align: center; width: 20rem">Title</th>
+            <th scope="col" style="text-align: center; width: 20rem">Author</th>
+            <th scope="col" style="text-align: center; width: 20rem">
+              Category
+            </th>
+            <th scope="col" style="text-align: center; width: 20rem">status</th>
+            <th scope="col" style="text-align: center; width: 20rem">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for book in books %}
+          <tr>
+            <th scope="row" class="text-center">{{book.id}}</th>
+            <td class="text-center">{{book.title}}</td>
+            <td class="text-center">{{book.author}}</td>
+            <td class="text-center">{{book.subject_area}}</td>
+            <td class="text-center">{{book.status}}</td>
+            <td class="text-center">
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                data-toggle="modal"
+                data-target="#myModal"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <h1 class="d-flex justify-content-center mt-5 ml-5">No books found...</h1>
+      {% endif %}
+    </div>
     {% endif %}
   </div>
   <div class="mt-5"></div>
 </div>
-
 {% endblock %}
