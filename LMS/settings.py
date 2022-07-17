@@ -24,19 +24,14 @@ SECRET_KEY = 'django-insecure-7+4_w_a)p^j%r5ov%o$tem-&wxcj#$87ra%-gb2p*v*^#zd3)o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['g12-library-system.herokuapp.com', 'localhost']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'customuser',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'library_books'
+    'customuser', 'django.contrib.admin', 'django.contrib.auth',
+    'django.contrib.contenttypes', 'django.contrib.sessions',
+    'django.contrib.messages', 'django.contrib.staticfiles', 'library_books'
 ]
 
 MIDDLEWARE = [
