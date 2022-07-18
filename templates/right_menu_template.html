@@ -58,94 +58,56 @@
   {% endif %} {% if user.role.lower == "admin" %}
   <div class="container-fluid">
     <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
-      <h1><i class="bi-person"></i> {{users}}</h1>
-      <h3>Total students</h3>
+      <h4><i class="bi-person"></i> {{users}}</h4>
+      <h5>Total students</h5>
     </div>
 
     <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
-      <h1><i class="bi-book"></i> {{total_books}}</h1>
-      <h3>Total books</h3>
+      <h4><i class="bi-book"></i> {{total_books}}</h4>
+      <h5>Total books</h5>
     </div>
 
     <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
-      <h1><i class="bi bi-journal-arrow-up"></i> {{pending_requests}}</h1>
-      <h3>Pending requests</h3>
+      <h4><i class="bi bi-journal-arrow-up"></i> {{pending_requests}}</h4>
+      <h5>Pending requests</h5>
     </div>
   </div>
-  <div class="card shadow mt-3" style="width: 20.5rem; margin-left: 20px">
-    <div class="card-body" style="margin-bottom: 10px">
-      <h5 class="card-title text-center">Add book</h5>
-      <hr style="margin: 0px; width: 10rem; margin-left: 70px" />
+  <div class="shadow p-2 m-2 rounded w-25">
+    <div class="container-fluid mb-1">
+      <h5 class="text-center">Add book</h5>
       <form
         action="{% url 'addbook' %}"
         method="GET"
-        class="needs-validation mt-3"
+        class="needs-validation"
         autocomplete="off"
       >
-      <div class="form-group input-group mb-1">
-        <span class="input-group-text"><strong>Title</strong></span>
-        <input class="form-control" value="{{title}}" id="title" name="title" placeholder="Book title">
-        <div class="invalid-feedback">*Required</div>
-      </div>
-      
-      <div class="form-group input-group mb-1">
-        <span class="input-group-text"><strong>Author</strong></span>
-        <input class="form-control" value="{{author}}" id="author" name="author" placeholder="Book author">
-        <div class="invalid-feedback">*Required</div>
-      </div>
-      
-      <div class="form-group input-group mb-1">
-        <span class="input-group-text"><strong>Category</strong></span>
-        <input class="form-control" value="{{subject_area}}" id="subject_area" name="subject_area" placeholder="Book category">
-        <div class="invalid-feedback">*Required</div>
-      </div>
-      
-      <div class="form-group input-group mb-1">
-        <span class="input-group-text"><strong>Publication date</strong></span>
-        <input class="form-control" value="{{publication_date}}" type="date" 
-          id="publication_date" name="publication_date" placeholder="Publication date">
-        <div class="invalid-feedback">*Required</div>
-      </div>
-      
-      <div class="mt-2 text-center">
-        <button type="submit" class="btn btn-primary"><i class="bi-plus-circle"></i> Add Book</button>
-      </div>
-
-        <div class="form-group">
-          <label for="title">Title:</label>
-          <input
-            class="form-control"
-            value="{{ title }}"
-            id="title"
-            name="title"
-            required
-          />
-          <div class="invalid-feedback">Please fill out this field.</div>
+        <div class="form-group input-group mb-1">
+          <span class="input-group-text"><strong>Title</strong></span>
+          <input class="form-control" value="{{title}}" id="title" name="title" placeholder="Book title">
+          <div class="invalid-feedback">*Required</div>
         </div>
-        <div class="form-group">
-          <label for="author">Author:</label>
-          <input
-            class="form-control"
-            value="{{ author }}"
-            id="author"
-            name="author"
-            required
-          />
-          <div class="invalid-feedback">Please fill out this field.</div>
+        
+        <div class="form-group input-group mb-1">
+          <span class="input-group-text"><strong>Author</strong></span>
+          <input class="form-control" value="{{author}}" id="author" name="author" placeholder="Book author">
+          <div class="invalid-feedback">*Required</div>
         </div>
-        <div class="form-group">
-          <label for="category">Category:</label>
-          <input
-            class="form-control"
-            value="{{ subject_area }}"
-            id="subject_area"
-            name="subject_area"
-            required
-          />
-          <div class="invalid-feedback">Please fill out this field.</div>
+        
+        <div class="form-group input-group mb-1">
+          <span class="input-group-text"><strong>Category</strong></span>
+          <input class="form-control" value="{{subject_area}}" id="subject_area" name="subject_area" placeholder="Book category">
+          <div class="invalid-feedback">*Required</div>
         </div>
-        <div class="mt-2">
-          <button type="submit" class="btn btn-primary">Add Book</button>
+        
+        <div class="form-group input-group mb-1">
+          <span class="input-group-text"><strong>Publication date</strong></span>
+          <input class="form-control" value="{{publication_date}}" type="date" 
+            id="publication_date" name="publication_date" placeholder="Publication date">
+          <div class="invalid-feedback">*Required</div>
+        </div>
+        
+        <div class="mt-2 text-center">
+          <button type="submit" class="btn btn-primary"><i class="bi-plus-circle"></i> Add Book</button>
         </div>
       </form>
     </div>
