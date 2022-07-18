@@ -24,7 +24,7 @@
 </style>
 <div class="rightbar mt-3">
   {% if user.role.lower == "student" %}
-  <div class="mt-3">
+  <div class="mt-2">
     <div class="shadow p-3 m-2 rounded w-25" style="text-align: center">
       <h4 class="">Recent activity</h4>
       <h5 class="text-primary">
@@ -56,22 +56,21 @@
     </div>
   </div>
   {% endif %} {% if user.role.lower == "admin" %}
-  <div class="container-fluid">
-    <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
-      <h4><i class="bi-person"></i> {{users}}</h4>
-      <h5>Total students</h5>
-    </div>
-
-    <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
-      <h4><i class="bi-book"></i> {{total_books}}</h4>
-      <h5>Total books</h5>
-    </div>
-
-    <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
-      <h4><i class="bi bi-journal-arrow-up"></i> {{pending_requests}}</h4>
-      <h5>Pending requests</h5>
-    </div>
+  <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
+    <h4><i class="bi-person"></i> {{users}}</h4>
+    <h5>Total students</h5>
   </div>
+
+  <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
+    <h4><i class="bi-book"></i> {{total_books}}</h4>
+    <h5>Total books</h5>
+  </div>
+
+  <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
+    <h4><i class="bi bi-journal-arrow-up"></i> {{pending_requests}}</h4>
+    <h5>Pending requests</h5>
+  </div>
+  
   <div class="shadow p-2 m-2 rounded w-25">
     <div class="container-fluid mb-1">
       <h5 class="text-center">Add book</h5>
