@@ -13,7 +13,8 @@ def userProfile(request, pk):
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
     try:
-        borrowed_book = Book.objects.get(borrower_id=user.id)
+        borrowed_book = Book.objects.get(
+            status='Borrowed', borrower_id=user.id)
     except:
         borrowed_book = ''
 
@@ -30,13 +31,16 @@ def userProfile(request, pk):
 @login_required(login_url='login')
 def userPayments(request, pk):
     details = {}
+    payment = ''
+    borrowed_book = ''
     user = CustomUser.objects.get(id=pk)
     total_books = Book.objects.all()
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
     try:
-        borrowed_book = Book.objects.get(status ='Borrowed', borrower_id=user.id)
+        borrowed_book = Book.objects.get(
+            status='Borrowed', borrower_id=user.id)
     except:
         borrowed_book = ''
 
@@ -111,6 +115,7 @@ def userPayments(request, pk):
 def userNotifications(request, pk):
     template_details = {}
     details = {}
+    borrowed_book = ''
     index = 0
     user = CustomUser.objects.get(id=pk)
     total_books = Book.objects.all()
@@ -119,7 +124,8 @@ def userNotifications(request, pk):
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
     try:
-        borrowed_book = Book.objects.get(status ='Borrowed', borrower_id=user.id)
+        borrowed_book = Book.objects.get(
+            status='Borrowed', borrower_id=user.id)
     except:
         borrowed_book = ''
 
