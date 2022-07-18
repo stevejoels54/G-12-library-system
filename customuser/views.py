@@ -36,12 +36,14 @@ def userPayments(request, pk):
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
     try:
-        borrowed_book = Book.objects.get(borrower_id=user.id)
+        borrowed_book = Book.objects.get(status ='Borrowed', borrower_id=user.id)
     except:
         borrowed_book = ''
 
     if request.user.role == 'Admin':
         details = {}  # Main dictionary containing all others
+        payments = ''
+        book = ''
         index = 0  # Counter
 
         try:  # Get all users
@@ -117,7 +119,7 @@ def userNotifications(request, pk):
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
     try:
-        borrowed_book = Book.objects.get(borrower_id=user.id)
+        borrowed_book = Book.objects.get(status ='Borrowed', borrower_id=user.id)
     except:
         borrowed_book = ''
 

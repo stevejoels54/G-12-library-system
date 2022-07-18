@@ -6,16 +6,16 @@
   {% endblock %}
   <div class="base-in">
     <div class="shadow p-3 m-2 rounded">
-      <h4>Total books borrowed:</h4>
-      <h4 class="text-primary"><i class="bi-book"></i> 2 Books </h4>
+      <h5>Total books borrowed:</h5>
+      <h5 class="text-primary"><i class="bi-book"></i> 2 Books </h5>
     </div>
     <div class="shadow p-3 m-2 rounded">
-      <h4>Amount paid in fines:</h4>
-      <h4 class="text-danger"><i class="bi-cash-coin"></i> 15,000 UGX </h4>
+      <h5>Amount paid in fines:</h5>
+      <h5 class="text-danger"><i class="bi-cash-coin"></i> 15,000 UGX </h5>
     </div>
     <div class="shadow p-3 m-2 rounded">
-      <h4>Last login:</h4>
-      <h4 class="text-secondary"><i class="bi-box-arrow-in-right"></i> {{user.last_login | timesince }} ago</h4>
+      <h5>Last login:</h5>
+      <h5 class="text-secondary"><i class="bi-box-arrow-in-right"></i> {{user.last_login | timesince }} ago</h5>
     </div>
   </div>
 </div>
