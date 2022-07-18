@@ -12,10 +12,6 @@ from django.contrib.auth.hashers import make_password, check_password
 global user
 
 
-def confirmPassword():
-    global confirm_password
-
-
 def getUser(request, pk):
     user = CustomUser.objects.get(id=pk)
 
@@ -86,14 +82,29 @@ def signup(request):
 
         if new_user.is_valid():
             if password == confirm_password:
-                print("Password matches")
                 context["password"] = make_password(password)
                 new_user = signupForm(context)
-                new_user.save()
-                messages.success(request, "User created successfully")
-                return redirect('/login')
+                if role == "Admin":
+                    try:
+                        user = CustomUser.objects.get(role=role)
+                    except:
+                        user = None
+
+                    if user is None:
+                        new_user.save()
+                        messages.success(request, "User created successfully")
+                        return redirect("/login/")
+                    else:
+                        context["password"] = password
+                        messages.error(
+                            request,
+                            "Administrator already exists, signup as student")
+                        return render(request, "signup.html", context)
+                else:
+                    new_user.save()
+                    messages.success(request, "User created successfully")
+                    return redirect("/login/")
             else:
-                print("Password does not match")
                 messages.error(request, "Passwords do not match")
                 return render(request, "signup.html", context)
         else:
