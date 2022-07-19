@@ -36,6 +36,7 @@ def dashboard(request, pk):
     pending_requests = Request.objects.filter(status="Pending")
     fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
     try:
         user = CustomUser.objects.get(id=pk)
     except:
