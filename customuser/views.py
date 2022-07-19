@@ -89,7 +89,11 @@ def userPayments(request, pk):
                     # Terminate entry if no payment exists
                     payment = ''
 
+                if details[index]['title'] == '':  # Delete indexes without books
+                    details.pop(index)
+
                 index += 1
+
         context = {'details': details}
 
     else:
