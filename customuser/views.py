@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import CustomUser, UserPayment
 from library_books.models import Book, Request
+from datetime import datetime
 
 
 @login_required(login_url='login')
@@ -11,6 +12,7 @@ def userProfile(request, pk):
     total_books = Book.objects.all()
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
+    fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
     try:
         borrowed_book = Book.objects.get(
@@ -22,6 +24,7 @@ def userProfile(request, pk):
         'users': users.count(),
         'total_books': total_books.count(),
         'pending_requests': pending_requests.count(),
+        'fines': fines.count(),
         'librarian': librarian,
         'borrowed_book': borrowed_book,
     }
@@ -37,6 +40,7 @@ def userPayments(request, pk):
     total_books = Book.objects.all()
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
+    fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
     try:
         borrowed_book = Book.objects.get(
@@ -82,7 +86,6 @@ def userPayments(request, pk):
                 except:
                     # Terminate entry if no payment exists
                     payment = ''
-                    details.pop(index)
 
                 index += 1
         context = {'details': details}
@@ -102,6 +105,7 @@ def userPayments(request, pk):
         'users': users.count(),
         'total_books': total_books.count(),
         'pending_requests': pending_requests.count(),
+        'fines': fines.count(),
         'librarian': librarian,
         'borrowed_book': borrowed_book,
         'payment': payment,
@@ -116,13 +120,16 @@ def userNotifications(request, pk):
     template_details = {}
     details = {}
     borrowed_book = ''
+    borrow_request = ''
     index = 0
     user = CustomUser.objects.get(id=pk)
     total_books = Book.objects.all()
     users = CustomUser.objects.filter(role='Student')
     user = CustomUser.objects.get(id=pk)
     pending_requests = Request.objects.filter(status="Pending")
+    fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
     try:
         borrowed_book = Book.objects.get(
             status='Borrowed', borrower_id=user.id)
@@ -138,16 +145,20 @@ def userNotifications(request, pk):
         if student.role == 'Student':
             details[index] = {}
             try:
+                details[index]['user_ID'] = student.id
                 details[index]['name'] = student.name
                 details[index]['phone_number'] = student.phone_number
             except:
+                details[index]['user_ID'] = ''
                 details[index]['name'] = ''
                 details[index]['phone_number'] = ''
 
             try:
                 # Get all book requests by a student
-                book_request = Request.objects.get(requester_id=student.id)
-                details[index]['time_requested'] = book_request.created
+                book_request = Request.objects.get(
+                    requester_id=student.id, status='Pending')
+                # details[index]['time_requested'] = datetime.fromtimestamp(
+                # book_request.created).strftime("%d-%m-%y")  # Convert timestamp to time object
                 # Get information about book requested
                 book = Book.objects.get(id=book_request.book_id.id)
                 details[index]['title'] = book.title
@@ -159,13 +170,30 @@ def userNotifications(request, pk):
 
             index += 1
 
+   # Check for any accept or decline button submissions
+    if request.method == 'POST':
+        if 'Accept' in request.POST:
+            # from the button value in form
+            person_ID = request.POST.get('Accept')
+            accepted_request = Request.objects.get(requester_id=person_ID)
+            borrowed_book = accepted_request.book_id
+            # Update and save request and book statuses
+            accepted_request.status = 'Accepted'
+            borrowed_book.status = 'Borrowed'
+            borrowed_book.borrower_id = CustomUser.objects.get(id=person_ID)
+            accepted_request.save()
+            borrowed_book.save()
+            pending_requests = Request.objects.filter(status="Pending")
+            return redirect('/user-notifications/' + str(request.user.id))
+
     context = {
         'details': details,
         'users': users.count(),
         'total_books': total_books.count(),
         'pending_requests': pending_requests.count(),
+        'fines': fines.count(),
         'librarian': librarian,
-        'borrowed_book': borrowed_book
+        'borrowed_book': borrowed_book,
     }
     return render(request, 'customuser/notifications_template.html', context)
 
