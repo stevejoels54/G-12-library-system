@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import CustomUser, UserPayment
 from library_books.models import Book, Request
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 @login_required(login_url='login')
@@ -14,6 +14,7 @@ def userProfile(request, pk):
     pending_requests = Request.objects.filter(status="Pending")
     fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
     try:
         borrowed_book = Book.objects.get(
             status='Borrowed', borrower_id=user.id)
@@ -42,6 +43,7 @@ def userPayments(request, pk):
     pending_requests = Request.objects.filter(status="Pending")
     fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
     try:
         borrowed_book = Book.objects.get(
             status='Borrowed', borrower_id=user.id)
@@ -87,7 +89,11 @@ def userPayments(request, pk):
                     # Terminate entry if no payment exists
                     payment = ''
 
+                if details[index]['title'] == '':  # Delete indexes without books
+                    details.pop(index)
+
                 index += 1
+
         context = {'details': details}
 
     else:
@@ -182,6 +188,21 @@ def userNotifications(request, pk):
             accepted_request.status = 'Accepted'
             borrowed_book.status = 'Borrowed'
             borrowed_book.borrower_id = CustomUser.objects.get(id=person_ID)
+            # Allow borrowing for one week
+            borrowed_book.due_date = datetime.now() + timedelta(hours=168)
+            accepted_request.save()
+            borrowed_book.save()
+            pending_requests = Request.objects.filter(status="Pending")
+            return redirect('/user-notifications/' + str(request.user.id))
+
+        if 'Decline' in request.POST:
+            # from the button value in form
+            person_ID = request.POST.get('Decline')
+            accepted_request = Request.objects.get(requester_id=person_ID)
+            borrowed_book = accepted_request.book_id
+            # Update and save request and book statuses
+            accepted_request.status = 'Declined'
+            borrowed_book.status = 'Available'
             accepted_request.save()
             borrowed_book.save()
             pending_requests = Request.objects.filter(status="Pending")
