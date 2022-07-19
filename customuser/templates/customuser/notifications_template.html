@@ -2,30 +2,32 @@
 
 <div class="container-fluid">
   {% if request.user.role == 'Student' %} {% for detail in details.values %}
-  {%if request.user.name == detail.name%} {% if detail %}
+  {%if request.user.name == detail.name%} {% if borrowed_book %}
 
   <div class="container-fluid p-3 m-1" style="text-align: center">
     <h5 class="text-muted"><i class="bi-bell"></i> User notifications</h5>
     <h4>~ {{user.name}}</h4>
-    <h5>Book title: {{detail.title}}</h5>
-    <h5>Date Borrowed: {{detail.updated}}</h5>
-    <h5>Due Date: {{detail.due_date}}</h5>
+    <h5>Book title: {{borrowed_book.title}}</h5>
+    <h5>Date Borrowed: {{borrowed_book.updated}}</h5>
+    <h5>Due Date: {{borrowed_book.due_date}}</h5>
     <h5>
-      Current fine: {% if detail.amount %} {{detail.amount}} {% else %} 0 UGX {%
-      endif %}
-    </h5>
+      Current fine: {% if detail.amount %} {{detail.amount}} {% else %} 0 UGX
+    </h5> {% endif %}
 
     <button class="btn btn-primary w-25 m-2">Return book</button>
   </div>
 
-  {% endif %}
+  {% else %}
 
-  <h5>You dont have any notifications</h5>
+  <div class="container-fluid p-3 m-1" style="text-align: center">
+    <h4>You dont have any notifications</h4>
+  </div>
+
 
   {% endif %} {% endif %} {% endfor %} {% elif request.user.role == 'Admin' %}
 
   <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg bg-light p-2 mb-2 mt-3">
+    <nav class="navbar navbar-expand-lg p-2 mb-2 mt-3">
       <h4 class="navbar-brand m-2"><strong>Pending book requests</strong></h4>
       <div class="container-fluid justify-content-center">
         <input
@@ -37,7 +39,7 @@
       </div>
     </nav>
 
-    <table class="table table-bordered bg-light">
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th scope="col">Name</th>
