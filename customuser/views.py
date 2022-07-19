@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import CustomUser, UserPayment
 from library_books.models import Book, Request
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 @login_required(login_url='login')
@@ -14,6 +14,7 @@ def userProfile(request, pk):
     pending_requests = Request.objects.filter(status="Pending")
     fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
     try:
         borrowed_book = Book.objects.get(
             status='Borrowed', borrower_id=user.id)
@@ -42,6 +43,7 @@ def userPayments(request, pk):
     pending_requests = Request.objects.filter(status="Pending")
     fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
     try:
         borrowed_book = Book.objects.get(
             status='Borrowed', borrower_id=user.id)
@@ -182,6 +184,8 @@ def userNotifications(request, pk):
             accepted_request.status = 'Accepted'
             borrowed_book.status = 'Borrowed'
             borrowed_book.borrower_id = CustomUser.objects.get(id=person_ID)
+            # Allow borrowing for one week
+            borrowed_book.due_date = datetime.now() + timedelta(hours=168)
             accepted_request.save()
             borrowed_book.save()
             pending_requests = Request.objects.filter(status="Pending")
