@@ -191,6 +191,19 @@ def userNotifications(request, pk):
             pending_requests = Request.objects.filter(status="Pending")
             return redirect('/user-notifications/' + str(request.user.id))
 
+        if 'Decline' in request.POST:
+            # from the button value in form
+            person_ID = request.POST.get('Decline')
+            accepted_request = Request.objects.get(requester_id=person_ID)
+            borrowed_book = accepted_request.book_id
+            # Update and save request and book statuses
+            accepted_request.status = 'Declined'
+            borrowed_book.status = 'Available'
+            accepted_request.save()
+            borrowed_book.save()
+            pending_requests = Request.objects.filter(status="Pending")
+            return redirect('/user-notifications/' + str(request.user.id))
+
     context = {
         'details': details,
         'users': users.count(),
