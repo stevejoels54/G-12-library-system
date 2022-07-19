@@ -122,6 +122,7 @@ def userNotifications(request, pk):
     borrowed_book = ''
     borrow_request = ''
     index = 0
+
     user = CustomUser.objects.get(id=pk)
     total_books = Book.objects.all()
     users = CustomUser.objects.filter(role='Student')
