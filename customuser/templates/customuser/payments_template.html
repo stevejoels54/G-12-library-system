@@ -27,10 +27,10 @@
           {% for detail in details.values %}
             {% if detail %}
             <th scope="row">{{detail.name}}</th>
-            <td>{{detail.phone_number}}</td>
+            <td>+{{detail.phone_number}}</td>
             <td>{{detail.title}}</td>
             <td>{{detail.due_date}}</td>
-            <td>{{detail.amount}}</td>
+            <td>{% if detail.amount %} {{detail.amount}} {% else %} 0 UGX</td> {% endif %}
             {% else %}
             <th scope="row">_</th>
             <td>_</td>
