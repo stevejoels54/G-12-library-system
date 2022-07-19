@@ -34,7 +34,9 @@ def dashboard(request, pk):
     total_books = Book.objects.all()
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
+    fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
     try:
         user = CustomUser.objects.get(id=pk)
     except:
@@ -49,6 +51,7 @@ def dashboard(request, pk):
         'users': users.count(),
         'total_books': total_books.count(),
         'pending_requests': pending_requests.count(),
+        'fines': fines.count(),
         'librarian': librarian,
         'borrowed_book': borrowed_book
     }
