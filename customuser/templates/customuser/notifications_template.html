@@ -61,10 +61,10 @@
             <form method="POST" action="">
               {% csrf_token %}
               <div class="btn-group justify-content-center" role="group">
-                <button type="submit" class="btn btn-outline-primary">
+                <button type="submit" class="btn btn-outline-primary" value="{{detail.user_ID}}" name="Accept">
                   Accept
                 </button>
-                <button type="submit" class="btn btn-outline-danger">
+                <button type="submit" class="btn btn-outline-danger" value="{{detail.user_ID}}" name="Decline">
                   Decline
                 </button>
               </div>
@@ -79,10 +79,10 @@
             <form method="POST" action="">
               {% csrf_token %}
               <div class="btn-group justify-content-center" role="group">
-                <button type="submit" class="btn btn-outline-primary">
+                <button type="submit" class="btn btn-outline-primary disabled">
                   Accept
                 </button>
-                <button type="submit" class="btn btn-outline-danger">
+                <button type="submit" class="btn btn-outline-danger disabled">
                   Decline
                 </button>
               </div>
