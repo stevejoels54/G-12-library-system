@@ -9,11 +9,21 @@ from datetime import datetime, timedelta
 @login_required(login_url='login')
 def userProfile(request, pk):
     user = CustomUser.objects.get(id=pk)
-    total_books = Book.objects.all()
+    borrowed_books = 0
+    available_books = 0
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
     fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
+    try:
+        available_books = Book.objects.filter(status='Available').count()
+    except:
+        available_books = 0
+    try:
+        borrowed_books = Book.objects.filter(status='Borrowed').count()
+    except:
+        borrowed_books = 0
 
     try:
         borrowed_book = Book.objects.get(
@@ -23,11 +33,12 @@ def userProfile(request, pk):
 
     context = {
         'users': users.count(),
-        'total_books': total_books.count(),
         'pending_requests': pending_requests.count(),
         'fines': fines.count(),
         'librarian': librarian,
         'borrowed_book': borrowed_book,
+        'available_books': available_books,
+        'borrowed_books': borrowed_books,
     }
     return render(request, 'customuser/profile_template.html', context)
 
@@ -37,12 +48,23 @@ def userPayments(request, pk):
     details = {}
     payment = ''
     borrowed_book = ''
+    borrowed_books = 0
+    available_books = 0
     user = CustomUser.objects.get(id=pk)
     total_books = Book.objects.all()
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
     fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
+    try:
+        available_books = Book.objects.filter(status='Available').count()
+    except:
+        available_books = 0
+    try:
+        borrowed_books = Book.objects.filter(status='Borrowed').count()
+    except:
+        borrowed_books = 0
 
     try:
         borrowed_book = Book.objects.get(
@@ -109,11 +131,12 @@ def userPayments(request, pk):
     context = {
         'details': details,
         'users': users.count(),
-        'total_books': total_books.count(),
         'pending_requests': pending_requests.count(),
         'fines': fines.count(),
         'librarian': librarian,
         'borrowed_book': borrowed_book,
+        'available_books': available_books,
+        'borrowed_books': borrowed_books,
         'payment': payment,
         'book': book
     }
@@ -126,16 +149,26 @@ def userNotifications(request, pk):
     template_details = {}
     details = {}
     borrowed_book = ''
+    borrowed_books = 0
+    available_books = 0
     borrow_request = ''
     index = 0
 
     user = CustomUser.objects.get(id=pk)
-    total_books = Book.objects.all()
     users = CustomUser.objects.filter(role='Student')
     user = CustomUser.objects.get(id=pk)
     pending_requests = Request.objects.filter(status="Pending")
     fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
+    try:
+        available_books = Book.objects.filter(status='Available').count()
+    except:
+        available_books = 0
+    try:
+        borrowed_books = Book.objects.filter(status='Borrowed').count()
+    except:
+        borrowed_books = 0
 
     try:
         borrowed_book = Book.objects.get(
@@ -211,11 +244,12 @@ def userNotifications(request, pk):
     context = {
         'details': details,
         'users': users.count(),
-        'total_books': total_books.count(),
         'pending_requests': pending_requests.count(),
         'fines': fines.count(),
         'librarian': librarian,
         'borrowed_book': borrowed_book,
+        'available_books': available_books,
+        'borrowed_books': borrowed_books,
     }
     return render(request, 'customuser/notifications_template.html', context)
 

@@ -32,7 +32,7 @@
   {% if user.role.lower == "student" %}
   
   <div class="mt-2">
-    <div class="shadow p-3 m-2 rounded w-25" style="text-align: center">
+    <div class="shadow-sm p-3 m-2 rounded w-25 text-center">
       <h4 class="">Recent activity</h4>
       <h5 class="text-primary">
         {{borrowed_book.status}}: {{borrowed_book.title}}
@@ -41,7 +41,7 @@
       <h5>Due Date: {{borrowed_book.due_date}}</h5>
     </div>
 
-    <div class="shadow p-3 m-2 rounded w-25" style="text-align: center">
+    <div class="shadow-sm p-3 m-2 rounded w-25 text-center">
       <h4>Librarian Information</h4>
       <h5>~ {{librarian.name}}</h5>
       <h5><i class="bi-envelope"></i> {{librarian.email}}</h5>
@@ -50,11 +50,9 @@
     </div>
 
     <div
-      class="container-fluid shadow p-3 m-2 rounded w-25"
-      style="text-align: center"
-    >
+      class="container-fluid shadow-sm p-3 m-2 rounded w-25 text-center">
       <div>
-        <h4>Pending fine:</h4>
+        <h4>Fine:</h4>
         <h5 class="text-danger"><i class="bi-credit-card"></i> 0 UGX</h5>
       </div>
       <div>
@@ -63,29 +61,36 @@
     </div>
   </div>
   {% endif %} {% if user.role.lower == "admin" %}
-  <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
+  <div class="shadow-sm p-2 m-2 rounded w-25 text-center text-primary">
     <h4><i class="bi-person"></i> {{users}}</h4>
     <h5>Total students</h5>
   </div>
 
-  <div class="shadow p-2 m-2 rounded w-25" style="text-align: center">
-    <h4><i class="bi-book"></i> {{total_books}}</h4>
-    <h5>Total books</h5>
+  <div class="shadow-sm p-2 m-2 rounded w-25 row">
+    <div class="column text-center text-primary">
+      <h4><i class="bi-book"></i> {{available_books}}</h4>
+      <h6>Available books</h6>
+    </div>
+    
+    <div class="column text-center text-danger">
+      <h4><i class="bi-book-fill"></i> {{borrowed_books}}</h4>
+      <h6>Borrowed books</h6>
+    </div>
   </div>
 
-  <div class="shadow p-2 m-2 rounded w-25 row">
-    <div class="column text-center">
+  <div class="shadow-sm p-2 m-2 rounded w-25 row">
+    <div class="column text-center text-primary">
       <h4><i class="bi-journal-arrow-up"></i> {{pending_requests}}</h4>
-      <h5>Requests</h5>
+      <h6>Requests</h6>
     </div>
 
-    <div class="column text-center">
+    <div class="column text-center text-danger">
       <h4><i class="bi-cash-coin"></i> {{fines}}</h4>
-      <h5>Fines</h5>
+      <h6>Fines</h6>
     </div>
   </div>
   
-  <div class="shadow p-2 m-2 rounded w-25">
+  <div class="shadow-sm p-2 m-2 rounded w-25">
     <div class="container-fluid mb-1">
       <h5 class="text-center">Add book</h5>
       <form

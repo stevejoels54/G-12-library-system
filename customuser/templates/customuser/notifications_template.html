@@ -1,8 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container-fluid">
-  {% if request.user.role == 'Student' %} {% for detail in details.values %}
-  {%if request.user.name == detail.name%} {% if borrowed_book %}
+  {% if request.user.role == 'Student' and borrowed_book %}
 
   <div class="container-fluid p-3 m-1" style="text-align: center">
     <h5 class="text-muted"><i class="bi-bell"></i> User notifications</h5>
@@ -11,19 +10,19 @@
     <h5>Date Borrowed: {{borrowed_book.updated}}</h5>
     <h5>Due Date: {{borrowed_book.due_date}}</h5>
     <h5>
-      Current fine: {% if detail.amount %} {{detail.amount}} {% else %} 0 UGX
+      Current fine: {% if request.user.payment %} {{request.user.payment.amount}} {% else %} 0 UGX
     </h5> {% endif %}
 
     <button class="btn btn-primary w-25 m-2">Return book</button>
   </div>
 
-  {% else %}
+  {% elif request.user.role == 'Student' and borrowed_book == '' %}
 
   <div class="container-fluid p-3 m-1" style="text-align: center">
     <h4>You dont have any notifications</h4>
   </div>
 
-  {% endif %} {% endif %} {% endfor %} {% elif request.user.role == 'Admin' %}
+  {% endif %} {% if request.user.role == 'Admin' %}
 
   <div class="container-fluid">
     <nav class="navbar navbar-expand-lg p-2 mb-2 mt-3">
