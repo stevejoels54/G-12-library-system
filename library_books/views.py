@@ -31,11 +31,21 @@ def addBook(request):
 def dashboard(request, pk):
     context = {}
     books = Book.objects.filter(status="Available")
-    total_books = Book.objects.all()
+    borrowed_books = 0
+    available_books = 0
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
     fines = UserPayment.objects.filter(status='Pending')
     librarian = CustomUser.objects.get(role__icontains="Admin")
+
+    try:
+        available_books = Book.objects.filter(status='Available').count()
+    except:
+        available_books = 0
+    try:
+        borrowed_books = Book.objects.filter(status='Borrowed').count()
+    except:
+        borrowed_books = 0
 
     try:
         user = CustomUser.objects.get(id=pk)
@@ -49,11 +59,12 @@ def dashboard(request, pk):
         'books': books,
         'user': user,
         'users': users.count(),
-        'total_books': total_books.count(),
         'pending_requests': pending_requests.count(),
         'fines': fines.count(),
         'librarian': librarian,
-        'borrowed_book': borrowed_book
+        'borrowed_book': borrowed_book,
+        'available_books': available_books,
+        'borrowed_books': borrowed_books,
     }
 
     if user != None:
