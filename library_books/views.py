@@ -185,8 +185,6 @@ def bookAction(request):
     if request.method == "GET":
         delete = request.GET.get("Delete")
         update = request.GET.get("Update")
-        print("Delete:", delete)
-        print("Update:", update)
         if delete != None:
             book = Book.objects.get(id=delete)
             book.delete()
