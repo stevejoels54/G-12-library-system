@@ -1,5 +1,5 @@
-{% extends 'base.html' %} {% block content %} {% if request.user.role ==
-'Admin'%}
+{% extends 'base.html' %} {% block content %} 
+{% if request.user.role == 'Admin'%}
 
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg p-2 mb-2 mt-3">
@@ -47,7 +47,8 @@
     </tbody>
   </table>
 </div>
-{% else %}
+{% endif %}
+{% if request.user.role == 'Student'%}
 
 <div class="container-fluid p-3 m-1" style="text-align: center">
   {% if payment %}
