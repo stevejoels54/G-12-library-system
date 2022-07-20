@@ -177,3 +177,19 @@ def searchBook(request):
             return render(request, 'library_books/dashboard.html', context)
 
     return render(request, 'library_books/dashboard.html', context)
+
+
+@login_required(login_url='/login/')
+def bookAction(request):
+    user = request.user.id
+    if request.method == "GET":
+        delete = request.GET.get("Delete")
+        update = request.GET.get("Update")
+        if delete != None:
+            book = Book.objects.get(id=delete)
+            book.delete()
+            return redirect('/dashboard/' + str(user))
+
+        elif update != None:
+            return redirect('/dashboard/' + str(user))
+    return redirect('/dashboard/' + str(user))

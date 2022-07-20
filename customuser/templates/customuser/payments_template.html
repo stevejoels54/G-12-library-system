@@ -1,16 +1,19 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-{% if request.user.role == 'Admin'%}
+{% extends 'base.html' %} {% block content %} {% if request.user.role ==
+'Admin'%}
 
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg p-2 mb-2 mt-3">
-    <h4 class="navbar-brand m-2"><strong>Books and payments information</strong></h4>
-      <div class="container-fluid justify-content-center">
-          <input class="form-control me-2" type="search" placeholder="Search payments"/>
-          <button class="btn btn-outline-primary" type="submit">Search</button>
-      </div>
+    <h4 class="navbar-brand m-2">
+      <strong>Books and payments information</strong>
+    </h4>
+    <div class="container-fluid justify-content-center">
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search payments"
+      />
+      <button class="btn btn-outline-primary" type="submit">Search</button>
+    </div>
   </nav>
 
   <table class="table table-bordered">
@@ -22,43 +25,41 @@
         <th scope="col">Due Date</th>
         <th scope="col">Amount</th>
       </tr>
-      
-      <tbody>
-        <tr>
-          {% for detail in details.values %}
-            {% if detail %}
-            <th scope="row">{{detail.name}}</th>
-            <td>+{{detail.phone_number}}</td>
-            <td>{{detail.title}}</td>
-            <td>{{detail.due_date}}</td>
-            <td>{% if detail.amount %} {{detail.amount}} {% else %} 0 UGX</td> {% endif %}
-            {% else %}
-            <th scope="row">_</th>
-            <td>_</td>
-            <td>_</td>
-            <td>_</td>
-            <td>_</td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-      </tbody>
+    </thead>
 
+    <tbody>
+      <tr>
+        {% for detail in details.values %} {% if detail %}
+        <th scope="row">{{detail.name}}</th>
+        <td>+{{detail.phone_number}}</td>
+        <td>{{detail.title}}</td>
+        <td>{{detail.due_date}}</td>
+        <td>{% if detail.amount %} {{detail.amount}} {% else %} 0 UGX</td>
+        {% endif %} {% else %}
+        <th scope="row">_</th>
+        <td>_</td>
+        <td>_</td>
+        <td>_</td>
+        <td>_</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
   </table>
-
 </div>
 {% else %}
 
-<div class="container-fluid p-3 m-1" style="text-align: center;">
+<div class="container-fluid p-3 m-1" style="text-align: center">
   {% if payment %}
 
-    <h5 class="text-muted"><i class="bi-credit-card"></i> Payment information</h5>
-    <h4>~ {{user.name}}</h4>
-    <h5>Book title: {{book.title}}</h5>
-    <h5>Date Borrowed: {{book.updated}}</h5>
-    <h5>Due Date: {{book.due_date}}</h5>
-    <h5>Current fine: {{payment.amount}}</h5>
+  <h5 class="text-muted"><i class="bi-credit-card"></i> Payment information</h5>
+  <h4>~ {{user.name}}</h4>
+  <h5>Book title: {{book.title}}</h5>
+  <h5>Date Borrowed: {{book.updated}}</h5>
+  <h5>Due Date: {{book.due_date}}</h5>
+  <h5>Current fine: {{payment.amount}}</h5>
 
-    <button class="btn btn-danger w-25 m-2">Pay fine</button>
+  <button class="btn btn-danger w-25 m-2">Pay fine</button>
 
   {% else %}
 
@@ -69,7 +70,9 @@
   <div class="base-in">
     <div class="shadow p-3 m-2 mt-5 rounded">
       <h5>Total books borrowed:</h5>
-      <h5 class="text-primary"><i class="bi-book"></i> {{borrowed_books}} Books</h5>
+      <h5 class="text-primary">
+        <i class="bi-book"></i> {{borrowed_books}} Books
+      </h5>
     </div>
     <div class="shadow p-3 m-2 mt-5 rounded">
       <h5>Amount paid in fines:</h5>
@@ -77,11 +80,12 @@
     </div>
     <div class="shadow p-3 m-2 mt-5 rounded">
       <h5>Last login:</h5>
-      <h5 class="text-secondary"><i class="bi-box-arrow-in-right"></i> {{user.last_login | timesince }} ago</h5>
+      <h5 class="text-secondary">
+        <i class="bi-box-arrow-in-right"></i> {{user.last_login | timesince }}
+        ago
+      </h5>
     </div>
   </div>
 </div>
 
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}

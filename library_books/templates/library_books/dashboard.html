@@ -62,18 +62,28 @@
         <tbody>
           {% for book in books %}
           <tr>
-            <th scope="row" class="text-center">{{book.id}}</th>
+            <th scope="row" class="text-center">bk-{{book.id}}</th>
             <td class="text-center">{{book.title}}</td>
             <td class="text-center">{{book.author}}</td>
             <td class="text-center">{{book.subject_area}}</td>
             <td class="text-center">{{book.status}}</td>
             <td class="text-center">
-              <form method="">
+              <form method="GET" action="{% url 'bookaction' %}">
                 <div class="btn-group justify-content-center" role="group">
-                  <button type="submit" class="btn btn-outline-primary" value="{{book.id}}" name="Update">
+                  <button
+                    type="submit"
+                    class="btn btn-outline-primary"
+                    value="{{book.id}}"
+                    name="Update"
+                  >
                     Update
                   </button>
-                  <button type="submit" class="btn btn-outline-danger" value="{{book.id}}" name="Delete">
+                  <button
+                    type="submit"
+                    class="btn btn-outline-danger"
+                    value="{{book.id}}"
+                    name="Delete"
+                  >
                     Delete
                   </button>
                 </div>

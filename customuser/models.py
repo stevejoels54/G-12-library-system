@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'sex', 'role', 'phone_number']
+    REQUIRED_FIELDS = ['name', 'sex', 'role', 'phone_number', 'username']
 
     def __str__(self):
         return self.email
