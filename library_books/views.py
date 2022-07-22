@@ -133,10 +133,19 @@ def searchBook(request):
     users = CustomUser.objects.filter(role='Student')
     pending_requests = Request.objects.filter(status="Pending")
     librarian = CustomUser.objects.get(role__icontains="Admin")
+    fines = UserPayment.objects.filter(status='Pending')
     try:
         borrowed_book = Book.objects.get(borrower_id=userID)
     except:
         borrowed_book = ''
+    try:
+        available_books = Book.objects.filter(status='Available').count()
+    except:
+        available_books = 0
+    try:
+        borrowed_books = Book.objects.filter(status='Borrowed').count()
+    except:
+        borrowed_books = 0
     query = request.GET.get('value')
     context = {
         'books': books,
@@ -145,7 +154,10 @@ def searchBook(request):
         'total_books': total_books.count(),
         'pending_requests': pending_requests.count(),
         'librarian': librarian,
-        'borrowed_book': borrowed_book
+        'borrowed_book': borrowed_book,
+        'available_books': available_books,
+        'borrowed_books': borrowed_books,
+        'fines': fines.count(),
     }
     if request.method == "GET":
         value = request.GET.get("value")
