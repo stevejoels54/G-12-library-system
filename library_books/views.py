@@ -205,3 +205,19 @@ def bookAction(request):
         elif update != None:
             return redirect('/dashboard/' + str(user))
     return redirect('/dashboard/' + str(user))
+
+
+@login_required(login_url='/login/')
+def returnBook(request, pk):
+    user = request.user.id
+    if request.method == "GET":
+        try:
+            book = Book.objects.get(id=pk)
+        except:
+            book = None
+        if book != None:
+            book.status = "Available"
+            book.borrower_id = None
+            book.save()
+            return redirect('/dashboard/' + str(user))
+    return redirect('/dashboard/' + str(user))

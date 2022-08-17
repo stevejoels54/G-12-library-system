@@ -56,7 +56,11 @@
         <h5 class="text-danger"><i class="bi-credit-card"></i> 0 UGX</h5>
       </div>
       <div>
-        <a href="#" class="btn btn-primary"><strong><i class="bi-journal-check"></i> Return book</strong></a>
+        {% if borrowed_book %}
+          <form method="GET" action="{% url "returnbook" borrowed_book.id %}">
+            <button class="btn btn-primary"><strong><i class="bi-journal-check"></i> Return book</strong></button> 
+          </form>
+        {% endif %}
       </div>
     </div>
   </div>
