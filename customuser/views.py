@@ -203,12 +203,20 @@ def userNotifications(request, pk):
 
 
 @login_required(login_url='login')
-def requestAction(request):
+def requestAction(request, pk):
     if request.method == "GET":
         Accept = request.GET.get("Accept")
         Decline = request.GET.get("Decline")
         if Accept != None:
-            print(Accept)
+            accepted_request = Request.objects.get(book_id=Accept)
+            borrowed_book = Book.objects.get(id=Accept)
+            accepted_request.status = "Accepted"
+            borrowed_book.status = 'Borrowed'
+            borrowed_book.borrower_id = CustomUser.objects.get(id=pk)
+            borrowed_book.due_date = datetime.now() + timedelta(hours=168)
+            borrowed_book.save()
+            accepted_request.save()
+            print("Accepted request: ", accepted_request)
 
         elif Decline != None:
             print(Decline)

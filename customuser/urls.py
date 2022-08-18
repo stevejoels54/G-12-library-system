@@ -7,5 +7,5 @@ urlpatterns = [
     path('user-notifications/<str:pk>/',
          views.userNotifications,
          name='notifications'),
-    path('requestaction', views.requestAction, name='requestaction'),
+    path('requestaction/<str:pk>/', views.requestAction, name='requestaction'),
 ]

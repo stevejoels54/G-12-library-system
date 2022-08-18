@@ -118,7 +118,7 @@
           <td>{{detail.book_id.title}}</td>
           <td>{{detail.created}}</td>
           <td>
-            <form method="GET" action="{% url "requestaction" %}">
+            <form method="GET" action="{% url "requestaction" detail.requester_id.id %}">
               <div class="btn-group justify-content-center" role="group">
                 <button
                   type="submit"
