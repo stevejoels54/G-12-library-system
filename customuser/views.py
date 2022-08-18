@@ -200,6 +200,15 @@ def userNotifications(request, pk):
         fine = UserPayment.objects.get(payer=user.id, status='Pending').amount
     except:
         fine = None
+    if borrowed_book != '':
+        return_date = datetime.strptime(
+            str(borrowed_book.due_date).split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+        now = datetime.strptime(str(datetime.now()), '%Y-%m-%d %H:%M:%S.%f')
+        days = (now - return_date).days
+        if days == -1:
+            warning = 'You have 1 day to return the book'
+        elif days == 0:
+            warning = 'You have to return the book today'
     requests_pending = Request.objects.all().filter(status="Pending")
 
     context = {
@@ -213,6 +222,7 @@ def userNotifications(request, pk):
         'borrowed_books': borrowed_books,
         'requests': requests,
         'fine': fine,
+        'warning': warning,
     }
     return render(request, 'customuser/notifications_template.html', context)
 

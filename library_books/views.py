@@ -235,8 +235,6 @@ def returnBook(request, pk):
                 str(book.due_date).split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
             now = datetime.strptime(str(datetime.now()),
                                     '%Y-%m-%d %H:%M:%S.%f')
-            """ now = datetime.strptime('2022-08-29 13:00:00.0000',
-                                    '%Y-%m-%d %H:%M:%S.%f') """
             days = (now - return_date).days
             if days == 3:
                 fine = 5000
