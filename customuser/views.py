@@ -26,8 +26,8 @@ def userProfile(request, pk):
         borrowed_books = 0
 
     try:
-        borrowed_book = Book.objects.get(
-            status='Borrowed', borrower_id=user.id)
+        borrowed_book = Book.objects.get(status='Borrowed',
+                                         borrower_id=user.id)
     except:
         borrowed_book = ''
 
@@ -67,8 +67,8 @@ def userPayments(request, pk):
         borrowed_books = 0
 
     try:
-        borrowed_book = Book.objects.get(
-            status='Borrowed', borrower_id=user.id)
+        borrowed_book = Book.objects.get(status='Borrowed',
+                                         borrower_id=user.id)
     except:
         borrowed_book = ''
 
@@ -111,7 +111,8 @@ def userPayments(request, pk):
                     # Terminate entry if no payment exists
                     payment = ''
 
-                if details[index]['title'] == '':  # Delete indexes without books
+                if details[index][
+                        'title'] == '':  # Delete indexes without books
                     details.pop(index)
 
                 index += 1
@@ -153,6 +154,7 @@ def userNotifications(request, pk):
     available_books = 0
     borrow_request = ''
     index = 0
+    requests = None
 
     user = CustomUser.objects.get(id=pk)
     users = CustomUser.objects.filter(role='Student')
@@ -171,8 +173,8 @@ def userNotifications(request, pk):
         borrowed_books = 0
 
     try:
-        borrowed_book = Book.objects.get(
-            status='Borrowed', borrower_id=user.id)
+        borrowed_book = Book.objects.get(status='Borrowed',
+                                         borrower_id=user.id)
     except:
         borrowed_book = ''
 
@@ -180,6 +182,10 @@ def userNotifications(request, pk):
         students = CustomUser.objects.all()
     except:
         return HttpResponse('No students yet')
+    try:
+        requests = Request.objects.get(requester_id=user)
+    except:
+        requests = None
 
     for student in students:
         if student.role == 'Student':
@@ -195,8 +201,8 @@ def userNotifications(request, pk):
 
             try:
                 # Get all book requests by a student
-                book_request = Request.objects.get(
-                    requester_id=student.id, status='Pending')
+                book_request = Request.objects.get(requester_id=student.id,
+                                                   status='Pending')
                 # details[index]['time_requested'] = datetime.fromtimestamp(
                 # book_request.created).strftime("%d-%m-%y")  # Convert timestamp to time object
                 # Get information about book requested
@@ -210,7 +216,8 @@ def userNotifications(request, pk):
 
             index += 1
 
-   # Check for any accept or decline button submissions
+
+# Check for any accept or decline button submissions
     if request.method == 'POST':
         if 'Accept' in request.POST:
             # from the button value in form
@@ -250,6 +257,7 @@ def userNotifications(request, pk):
         'borrowed_book': borrowed_book,
         'available_books': available_books,
         'borrowed_books': borrowed_books,
+        'requests': requests,
     }
     return render(request, 'customuser/notifications_template.html', context)
 

@@ -1,19 +1,77 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container-fluid">
-  {% if request.user.role == 'Student' and borrowed_book %}
+  {% if request.user.role == 'Student' and borrowed_book and requests%}
 
-  <div class="container-fluid p-3 m-1" style="text-align: center">
-    <h5 class="text-muted"><i class="bi-bell"></i> User notifications</h5>
-    <h4>~ {{user.name}}</h4>
-    <h5>Book title: {{borrowed_book.title}}</h5>
-    <h5>Date Borrowed: {{borrowed_book.updated}}</h5>
-    <h5>Due Date: {{borrowed_book.due_date}}</h5>
-    <h5>
-      Current fine: {% if request.user.payment %} {{request.user.payment.amount}} {% else %} 0 UGX
-    </h5> {% endif %}
-
-    <button class="btn btn-primary w-25 m-2">Return book</button>
+  <div class="container-fluid p-3 m-1">
+    <div
+      class="card border-0 shadow-sm alert alert-primary"
+      style="width: 100%"
+    >
+      <div class="card-body">
+        <h5 class="card-title text-muted">
+          <i class="bi-bell"></i>User notification
+        </h5>
+        <h5 class="mb-2">{{user.name}}</h5>
+        <h6 class="text-muted">Book title: {{borrowed_book.title}}</h6>
+        <h6 class="text-muted">Date Borrowed: {{borrowed_book.updated}}</h6>
+        <h6 class="text-muted">Due Date:<span class="text-danger"> {{borrowed_book.due_date}} </span></h6>
+        <h6 class="text-muted">
+          Current fine: {% if request.user.payment %}
+          <span class="text-danger">{{request.user.payment.amount}}</span> {% else %}
+          <span class="text-danger">0 UGX</span>
+        </h6>
+        {% endif %}
+        <form method="GET" action="{% url "returnbook" borrowed_book.id %}">
+          <button class="btn btn-primary rounded-pill"><strong><i class="bi-journal-check"></i> Return book</strong></button> 
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid p-3 m-1">
+    <div
+      class="card border-0 shadow-sm alert alert-primary"
+      style="width: 100%"
+    >
+      <div class="card-body">
+        <h5 class="card-title text-muted">
+          <i class="bi-bell"></i>User notification
+        </h5>
+        <h5 class="mb-2">{{user.name}}</h5>
+        <h6 class="text-muted">Book Requested: {{requests.book_id.title}}</h6>
+        <h6 class="text-muted">Book Author: {{requests.book_id.author}}</h6>
+        {% if requests.status == 'Pending' %}
+        <h6 class="text-muted">Status: <span class="text-warning">{{requests.status}}</span></h6>
+        {% elif requests.status == 'Declined' %}
+        <h6 class="text-muted">Status: <span class="text-danger">{{requests.status}}</span></h6>
+        {% else %}
+        <h6 class="text-muted">Status: <span class="text-success">{{requests.status}}</span></h6>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% elif request.user.role == 'Student' and requests%}
+  <div class="container-fluid p-3 m-1">
+    <div
+      class="card border-0 shadow-sm alert alert-primary"
+      style="width: 100%"
+    >
+      <div class="card-body">
+        <h5 class="card-title text-muted">
+          <i class="bi-bell"></i>User notification
+        </h5>
+        <h5 class="mb-2">{{user.name}}</h5>
+        <h6 class="text-muted">Book Requested: {{requests.book_id.title}}</h6>
+        <h6 class="text-muted">Book Author: {{requests.book_id.author}}</h6>
+        {% if requests.status == 'Pending' %}
+        <h6 class="text-muted">Status: <span class="text-warning">{{requests.status}}</span></h6>
+        {% elif requests.status == 'Declined' %}
+        <h6 class="text-muted">Status: <span class="text-danger">{{requests.status}}</span></h6>
+        {% else %}
+        <h6 class="text-muted">Status: <span class="text-success">{{requests.status}}</span></h6>
+        {% endif %}
+      </div>
+    </div>
   </div>
 
   {% elif request.user.role == 'Student' and borrowed_book == '' %}
@@ -60,10 +118,20 @@
             <form method="POST" action="">
               {% csrf_token %}
               <div class="btn-group justify-content-center" role="group">
-                <button type="submit" class="btn btn-outline-primary" value="{{detail.user_ID}}" name="Accept">
+                <button
+                  type="submit"
+                  class="btn btn-outline-primary"
+                  value="{{detail.user_ID}}"
+                  name="Accept"
+                >
                   Accept
                 </button>
-                <button type="submit" class="btn btn-outline-danger" value="{{detail.user_ID}}" name="Decline">
+                <button
+                  type="submit"
+                  class="btn btn-outline-danger"
+                  value="{{detail.user_ID}}"
+                  name="Decline"
+                >
                   Decline
                 </button>
               </div>
@@ -95,7 +163,6 @@
   </div>
 
   {% endif %}
-
 </div>
 
 {% endblock %}
