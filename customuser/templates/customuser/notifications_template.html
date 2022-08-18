@@ -1,8 +1,24 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container-fluid">
-  {% if request.user.role == 'Student' and borrowed_book and requests%}
+  {% if request.user.role == 'Student' and warning %}
+    <div class="container-fluid p-3 mt-2 mb-1">
+      <div
+        class="card border-0 shadow-sm alert alert-danger"
+        style="width: 100%"
+      >
+        <div class="card-body">
+          <h5 class="card-title text-muted">
+            <i class="bi-bell"></i>User notification
+          </h5>
+          <h5 class="mb-2">{{user.name}}</h5>
+          <h5 class="text-muted text-center"><i class="bi bi-exclamation-triangle"></i> {{warning}}</h5>
+        </div>
+      </div>
+    </div>
+{% endif %}
 
+  {% if request.user.role == 'Student' and borrowed_book and requests%}
   <div class="container-fluid p-3 mt-2">
     <div
       class="card border-0 shadow-sm alert alert-primary"
@@ -54,6 +70,7 @@
     {% endfor %}
     <div class="mb-5"></div>
   </div>
+
   {% elif request.user.role == 'Student' and requests%}
   <div class="container-fluid p-3">
     {% for request in requests %}
@@ -80,15 +97,15 @@
     </div>
     {% endfor %}
     <div class="mb-5"></div>
-  </div>
+  </div> 
 
   {% elif request.user.role == 'Student' and borrowed_book == '' %}
   <div class="container-fluid p-3 m-1" style="text-align: center">
     <h4>You dont have any notifications</h4>
   </div>
+  {% endif %}
 
-  {% endif %} {% if request.user.role == 'Admin' %}
-
+  {% if request.user.role == 'Admin' %}
   <div class="container-fluid">
     <nav class="navbar navbar-expand-lg p-2 mb-2 mt-3">
       <h4 class="navbar-brand m-2"><strong>Pending book requests</strong></h4>
