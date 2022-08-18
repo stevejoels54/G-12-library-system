@@ -56,7 +56,7 @@ def dashboard(request, pk):
     except:
         borrowed_book = ''
     try:
-        fine = UserPayment.objects.get(payer=user.id, status='Pending')
+        fine = UserPayment.objects.get(payer=user.id, status='Pending').amount
     except:
         fine = None
     context = {
@@ -69,7 +69,7 @@ def dashboard(request, pk):
         'borrowed_book': borrowed_book,
         'available_books': available_books,
         'borrowed_books': borrowed_books,
-        'fine': fine.amount,
+        'fine': fine,
     }
 
     if user != None:
@@ -157,7 +157,7 @@ def searchBook(request):
     except:
         borrowed_books = 0
     try:
-        fine = UserPayment.objects.get(payer=userID, status='Pending')
+        fine = UserPayment.objects.get(payer=userID, status='Pending').amount
     except:
         fine = None
     query = request.GET.get('value')
@@ -172,7 +172,7 @@ def searchBook(request):
         'available_books': available_books,
         'borrowed_books': borrowed_books,
         'fines': fines.count(),
-        'fine': fine.amount,
+        'fine': fine,
     }
     if request.method == "GET":
         value = request.GET.get("value")
@@ -233,10 +233,10 @@ def returnBook(request, pk):
         if book != None:
             return_date = datetime.strptime(
                 str(book.due_date).split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
-            #now = datetime.strptime(str(datetime.now()),
-            #                        '%Y-%m-%d %H:%M:%S.%f')
-            now = datetime.strptime('2022-08-29 13:00:00.0000',
+            now = datetime.strptime(str(datetime.now()),
                                     '%Y-%m-%d %H:%M:%S.%f')
+            """ now = datetime.strptime('2022-08-29 13:00:00.0000',
+                                    '%Y-%m-%d %H:%M:%S.%f') """
             days = (now - return_date).days
             if days == 3:
                 fine = 5000

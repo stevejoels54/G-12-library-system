@@ -1,31 +1,36 @@
-{% extends 'base.html' %} 
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
-<div class="container-fluid p-3 m-1" style="text-align: center;">
-  {% block custom_content %}
-  {% endblock %}
-
+<div class="container-fluid p-3 m-1" style="text-align: center">
+  {% block custom_content %} {% endblock %} 
+  </>
   {% if request.user.role == 'Student' %}
   <div class="base-in">
     <div class="shadow p-3 m-2 rounded">
       <h5>Total books borrowed:</h5>
-      <h5 class="text-primary"><i class="bi-book"></i> {{borrowed_books}} Books </h5>
+      <h5 class="text-primary">
+        <i class="bi-book"></i> {{borrowed_books}} Books
+      </h5>
     </div>
     <div class="shadow p-3 m-2 rounded">
-      <h5>Amount paid in fines:</h5>
-      <h5 class="text-danger"><i class="bi-cash-coin"></i> 0 UGX </h5>
+      <h5>Amount to pay in fines:</h5>
+      <h5 class="text-danger"><i class="bi-cash-coin"></i>{% if fine %} {{fine}} UGX {% else %} 0 UGX {% endif %}</h5>
     </div>
     <div class="shadow p-3 m-2 rounded">
       <h5>Last login:</h5>
-      <h5 class="text-secondary"><i class="bi-box-arrow-in-right"></i> {{user.last_login | timesince }} ago</h5>
+      <h5 class="text-secondary">
+        <i class="bi-box-arrow-in-right"></i> {{user.last_login | timesince }}
+        ago
+      </h5>
     </div>
   </div>
-  
+
   {% elif request.user.role == 'Admin' %}
-  
+
   <div class="shadow-sm p-3 m-2 rounded">
     <h5>Last login:</h5>
-    <h5 class="text-secondary"><i class="bi-box-arrow-in-right"></i> {{user.last_login | timesince }} ago</h5>
+    <h5 class="text-secondary">
+      <i class="bi-box-arrow-in-right"></i> {{user.last_login | timesince }} ago
+    </h5>
   </div>
 
   {% endif %}

@@ -1,6 +1,6 @@
-{% extends 'base.html' %} {% block content %} {% if request.user.role ==
-'Admin'%}
-
+{% extends 'base.html' %} {% block content %}
+<div></div>
+{% if request.user.role == 'Admin' %}
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg p-2 mb-2 mt-3">
     <h4 class="navbar-brand m-2">
@@ -75,8 +75,11 @@
       </h5>
     </div>
     <div class="shadow p-3 m-2 mt-5 rounded">
-      <h5>Amount paid in fines:</h5>
-      <h5 class="text-danger"><i class="bi-cash-coin"></i> 0 UGX</h5>
+      <h5>Amount to pay in fines:</h5>
+      <h5 class="text-danger">
+        <i class="bi-cash-coin"></i>{% if fine %} {{fine}} UGX {% else %} 0 UGX
+        {% endif %}
+      </h5>
     </div>
     <div class="shadow p-3 m-2 mt-5 rounded">
       <h5>Last login:</h5>
