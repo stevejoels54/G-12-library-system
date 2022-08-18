@@ -48,6 +48,7 @@
         {% else %}
         <h6 class="text-muted">Status: <span class="text-success">{{request.status}}</span></h6>
         {% endif %}
+        <h6 class="text-muted">Date Requested: {{request.created}}</h6>
       </div>
     </div>
     {% endfor %}
@@ -74,6 +75,7 @@
         {% else %}
         <h6 class="text-muted">Status: <span class="text-success">{{request.status}}</span></h6>
         {% endif %}
+        <h6 class="text-muted">Date Requested: {{request.created}}</h6>
       </div>
     </div>
     {% endfor %}
