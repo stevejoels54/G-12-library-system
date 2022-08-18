@@ -110,21 +110,20 @@
       </thead>
 
       <tbody>
-        {% for detail in details.values %}
+        {% for detail in details %}
         <tr>
           {% if detail %}
-          <th scope="row">{{detail.name}}</th>
-          <td>{{detail.phone_number}}</td>
-          <td>{{detail.title}}</td>
-          <td>{{detail.time_created}}</td>
+          <th scope="row">{{detail.requester_id.name}}</th>
+          <td>+{{detail.requester_id.phone_number}}</td>
+          <td>{{detail.book_id.title}}</td>
+          <td>{{detail.created}}</td>
           <td>
-            <form method="POST" action="">
-              {% csrf_token %}
+            <form method="GET" action="{% url "requestaction" %}">
               <div class="btn-group justify-content-center" role="group">
                 <button
                   type="submit"
                   class="btn btn-outline-primary"
-                  value="{{detail.user_ID}}"
+                  value="{{detail.book_id.id}}"
                   name="Accept"
                 >
                   Accept
@@ -132,7 +131,7 @@
                 <button
                   type="submit"
                   class="btn btn-outline-danger"
-                  value="{{detail.user_ID}}"
+                  value="{{detail.book_id.id}}"
                   name="Decline"
                 >
                   Decline

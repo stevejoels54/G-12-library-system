@@ -109,7 +109,7 @@ def borrowBook(request, book, pk):
                             requester_id=user).filter(status="Pending")
                     except:
                         request = None
-                    if borrowed_book is None and request is None:
+                    if borrowed_book is None:
                         book.status = "Pending"
                         book.save()
                         book_request = Request(requester_id=user,
