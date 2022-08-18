@@ -183,7 +183,8 @@ def userNotifications(request, pk):
     except:
         return HttpResponse('No students yet')
     try:
-        requests = Request.objects.filter(requester_id=user)
+        requests = Request.objects.filter(
+            requester_id=user).order_by('-created')
     except:
         requests = None
     requests_pending = Request.objects.all().filter(status="Pending")
