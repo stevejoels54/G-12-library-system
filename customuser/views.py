@@ -262,5 +262,10 @@ def userNotifications(request, pk):
     return render(request, 'customuser/notifications_template.html', context)
 
 
+@login_required(login_url='login')
+def requestAction(request, pk):
+    return redirect('/user-notifications/' + str(request.user.id))
+
+
 def home(request):
     return render(request, "home.html", {})
