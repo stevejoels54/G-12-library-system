@@ -109,7 +109,7 @@ def borrowBook(request, book, pk):
                             requester_id=user).filter(status="Pending")
                     except:
                         request = None
-                    if borrowed_book is None:
+                    if borrowed_book is None and request is None:
                         book.status = "Pending"
                         book.save()
                         book_request = Request(requester_id=user,
@@ -220,14 +220,9 @@ def returnBook(request, pk):
             book = Book.objects.get(id=pk)
         except:
             book = None
-        try:
-            request = Request.objects.get(requester_id=user)
-        except:
-            request = None
-        if book != None and request != None:
+        if book != None:
             book.status = "Available"
             book.borrower_id = None
             book.save()
-            request.delete()
             return redirect('/dashboard/' + str(user))
     return redirect('/dashboard/' + str(user))

@@ -3,7 +3,7 @@
 <div class="container-fluid">
   {% if request.user.role == 'Student' and borrowed_book and requests%}
 
-  <div class="container-fluid p-3 m-1">
+  <div class="container-fluid p-3 mt-2">
     <div
       class="card border-0 shadow-sm alert alert-primary"
       style="width: 100%"
@@ -28,10 +28,10 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid p-3 m-1">
+  <div class="container-fluid p-3">
     {% for request in requests %}
     <div
-      class="card border-0 shadow-sm alert alert-primary"
+      class="card border-0 shadow-sm alert alert-primary mt-2"
       style="width: 100%"
     >
       <div class="card-body">
@@ -51,12 +51,13 @@
       </div>
     </div>
     {% endfor %}
+    <div class="mb-5"></div>
   </div>
   {% elif request.user.role == 'Student' and requests%}
-  <div class="container-fluid p-3 m-1">
+  <div class="container-fluid p-3">
     {% for request in requests %}
     <div
-      class="card border-0 shadow-sm alert alert-primary"
+      class="card border-0 shadow-sm alert alert-primary mt-2"
       style="width: 100%"
     >
       <div class="card-body">
@@ -76,6 +77,7 @@
       </div>
     </div>
     {% endfor %}
+    <div class="mb-5"></div>
   </div>
 
   {% elif request.user.role == 'Student' and borrowed_book == '' %}
