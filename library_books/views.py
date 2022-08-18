@@ -55,6 +55,10 @@ def dashboard(request, pk):
         borrowed_book = Book.objects.get(borrower_id=user.id)
     except:
         borrowed_book = ''
+    try:
+        fine = UserPayment.objects.get(payer=user.id, status='Pending')
+    except:
+        fine = None
     context = {
         'books': books,
         'user': user,
@@ -65,6 +69,7 @@ def dashboard(request, pk):
         'borrowed_book': borrowed_book,
         'available_books': available_books,
         'borrowed_books': borrowed_books,
+        'fine': fine.amount,
     }
 
     if user != None:
@@ -151,6 +156,10 @@ def searchBook(request):
         borrowed_books = Book.objects.filter(status='Borrowed').count()
     except:
         borrowed_books = 0
+    try:
+        fine = UserPayment.objects.get(payer=userID, status='Pending')
+    except:
+        fine = None
     query = request.GET.get('value')
     context = {
         'books': books,
@@ -163,6 +172,7 @@ def searchBook(request):
         'available_books': available_books,
         'borrowed_books': borrowed_books,
         'fines': fines.count(),
+        'fine': fine.amount,
     }
     if request.method == "GET":
         value = request.GET.get("value")
@@ -221,6 +231,31 @@ def returnBook(request, pk):
         except:
             book = None
         if book != None:
+            return_date = datetime.strptime(
+                str(book.due_date).split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+            #now = datetime.strptime(str(datetime.now()),
+            #                        '%Y-%m-%d %H:%M:%S.%f')
+            now = datetime.strptime('2022-08-29 13:00:00.0000',
+                                    '%Y-%m-%d %H:%M:%S.%f')
+            days = (now - return_date).days
+            if days == 3:
+                fine = 5000
+                payment = UserPayment(
+                    payee_book=book,
+                    payer=CustomUser.objects.get(id=user),
+                    status='Pending',
+                    amount=fine,
+                )
+                payment.save()
+            elif days >= 10:
+                fine = 15000
+                payment = UserPayment(
+                    payee_book=book,
+                    payer=CustomUser.objects.get(id=user),
+                    status='Pending',
+                    amount=fine,
+                )
+                payment.save()
             book.status = "Available"
             book.borrower_id = None
             book.save()

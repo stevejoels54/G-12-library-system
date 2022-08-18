@@ -53,7 +53,7 @@
       class="container-fluid shadow-sm p-3 m-2 rounded w-25 text-center">
       <div>
         <h4>Fine:</h4>
-        <h5 class="text-danger"><i class="bi-credit-card"></i> 0 UGX</h5>
+        <h5 class="text-danger"><i class="bi-credit-card"></i>{% if fine %} {{fine}} UGX {% else %} 0 UGX {% endif %}</h5>
       </div>
       <div>
         {% if borrowed_book %}
