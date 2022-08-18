@@ -164,6 +164,7 @@ def userNotifications(request, pk):
     borrow_request = ''
     index = 0
     requests = None
+    warning = None
 
     user = CustomUser.objects.get(id=pk)
     users = CustomUser.objects.filter(role='Student')
