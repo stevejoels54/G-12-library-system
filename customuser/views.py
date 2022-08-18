@@ -30,6 +30,10 @@ def userProfile(request, pk):
                                          borrower_id=user.id)
     except:
         borrowed_book = ''
+    try:
+        fine = UserPayment.objects.get(payer=user.id, status='Pending').amount
+    except:
+        fine = None
 
     context = {
         'users': users.count(),
@@ -39,6 +43,7 @@ def userProfile(request, pk):
         'borrowed_book': borrowed_book,
         'available_books': available_books,
         'borrowed_books': borrowed_books,
+        'fine': fine,
     }
     return render(request, 'customuser/profile_template.html', context)
 
@@ -71,7 +76,10 @@ def userPayments(request, pk):
                                          borrower_id=user.id)
     except:
         borrowed_book = ''
-
+    try:
+        fine = UserPayment.objects.get(payer=user.id, status='Pending').amount
+    except:
+        fine = None
     if request.user.role == 'Admin':
         details = {}  # Main dictionary containing all others
         payments = ''
@@ -139,7 +147,8 @@ def userPayments(request, pk):
         'available_books': available_books,
         'borrowed_books': borrowed_books,
         'payment': payment,
-        'book': book
+        'book': book,
+        'fine': fine,
     }
 
     return render(request, 'customuser/payments_template.html', context)
@@ -187,6 +196,10 @@ def userNotifications(request, pk):
             requester_id=user).order_by('-created')
     except:
         requests = None
+    try:
+        fine = UserPayment.objects.get(payer=user.id, status='Pending').amount
+    except:
+        fine = None
     requests_pending = Request.objects.all().filter(status="Pending")
 
     context = {
@@ -199,6 +212,7 @@ def userNotifications(request, pk):
         'available_books': available_books,
         'borrowed_books': borrowed_books,
         'requests': requests,
+        'fine': fine,
     }
     return render(request, 'customuser/notifications_template.html', context)
 
@@ -209,7 +223,8 @@ def requestAction(request, pk):
         Accept = request.GET.get("Accept")
         Decline = request.GET.get("Decline")
         if Accept != None:
-            accepted_request = Request.objects.get(book_id=Accept)
+            accepted_request = Request.objects.filter(requester_id=pk).filter(
+                book_id=Accept).get(status="Pending")
             borrowed_book = Book.objects.get(id=Accept)
             accepted_request.status = "Accepted"
             borrowed_book.status = 'Borrowed'
@@ -220,14 +235,15 @@ def requestAction(request, pk):
             return redirect('/user-notifications/' + str(request.user.id))
 
         elif Decline != None:
-            accepted_request = Request.objects.get(book_id=Decline)
+            declined_request = Request.objects.filter(requester_id=pk).filter(
+                book_id=Decline).get(status="Pending")
             declined_book = Book.objects.get(id=Decline)
-            accepted_request.status = "Declined"
+            declined_request.status = "Declined"
             declined_book.status = 'Available'
             declined_book.borrower_id = None
             declined_book.due_date = datetime.now() + timedelta(hours=168)
             declined_book.save()
-            accepted_request.save()
+            declined_request.save()
             return redirect('/user-notifications/' + str(request.user.id))
 
     return redirect('/user-notifications/' + str(request.user.id))
