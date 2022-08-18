@@ -219,6 +219,14 @@ def requestAction(request, pk):
             print("Accepted request: ", accepted_request)
 
         elif Decline != None:
+            accepted_request = Request.objects.get(book_id=Decline)
+            borrowed_book = Book.objects.get(id=Decline)
+            accepted_request.status = "Declined"
+            borrowed_book.status = 'Available'
+            borrowed_book.borrower_id = CustomUser.objects.get(id=pk)
+            borrowed_book.due_date = datetime.now() + timedelta(hours=168)
+            borrowed_book.save()
+            accepted_request.save()
             print(Decline)
     return redirect('/user-notifications/' + str(request.user.id))
 
