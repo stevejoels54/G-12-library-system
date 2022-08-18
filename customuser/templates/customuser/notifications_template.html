@@ -29,6 +29,7 @@
     </div>
   </div>
   <div class="container-fluid p-3 m-1">
+    {% for request in requests %}
     <div
       class="card border-0 shadow-sm alert alert-primary"
       style="width: 100%"
@@ -38,20 +39,22 @@
           <i class="bi-bell"></i>User notification
         </h5>
         <h5 class="mb-2">{{user.name}}</h5>
-        <h6 class="text-muted">Book Requested: {{requests.book_id.title}}</h6>
-        <h6 class="text-muted">Book Author: {{requests.book_id.author}}</h6>
-        {% if requests.status == 'Pending' %}
-        <h6 class="text-muted">Status: <span class="text-warning">{{requests.status}}</span></h6>
-        {% elif requests.status == 'Declined' %}
-        <h6 class="text-muted">Status: <span class="text-danger">{{requests.status}}</span></h6>
+        <h6 class="text-muted">Book Requested: {{request.book_id.title}}</h6>
+        <h6 class="text-muted">Book Author: {{request.book_id.author}}</h6>
+        {% if request.status == 'Pending' %}
+        <h6 class="text-muted">Status: <span class="text-warning">{{request.status}}</span></h6>
+        {% elif request.status == 'Declined' %}
+        <h6 class="text-muted">Status: <span class="text-danger">{{request.status}}</span></h6>
         {% else %}
-        <h6 class="text-muted">Status: <span class="text-success">{{requests.status}}</span></h6>
+        <h6 class="text-muted">Status: <span class="text-success">{{request.status}}</span></h6>
         {% endif %}
       </div>
     </div>
+    {% endfor %}
   </div>
   {% elif request.user.role == 'Student' and requests%}
   <div class="container-fluid p-3 m-1">
+    {% for request in requests %}
     <div
       class="card border-0 shadow-sm alert alert-primary"
       style="width: 100%"
@@ -61,21 +64,21 @@
           <i class="bi-bell"></i>User notification
         </h5>
         <h5 class="mb-2">{{user.name}}</h5>
-        <h6 class="text-muted">Book Requested: {{requests.book_id.title}}</h6>
-        <h6 class="text-muted">Book Author: {{requests.book_id.author}}</h6>
-        {% if requests.status == 'Pending' %}
-        <h6 class="text-muted">Status: <span class="text-warning">{{requests.status}}</span></h6>
-        {% elif requests.status == 'Declined' %}
-        <h6 class="text-muted">Status: <span class="text-danger">{{requests.status}}</span></h6>
+        <h6 class="text-muted">Book Requested: {{request.book_id.title}}</h6>
+        <h6 class="text-muted">Book Author: {{request.book_id.author}}</h6>
+        {% if request.status == 'Pending' %}
+        <h6 class="text-muted">Status: <span class="text-warning">{{request.status}}</span></h6>
+        {% elif request.status == 'Declined' %}
+        <h6 class="text-muted">Status: <span class="text-danger">{{request.status}}</span></h6>
         {% else %}
-        <h6 class="text-muted">Status: <span class="text-success">{{requests.status}}</span></h6>
+        <h6 class="text-muted">Status: <span class="text-success">{{request.status}}</span></h6>
         {% endif %}
       </div>
     </div>
+    {% endfor %}
   </div>
 
   {% elif request.user.role == 'Student' and borrowed_book == '' %}
-
   <div class="container-fluid p-3 m-1" style="text-align: center">
     <h4>You dont have any notifications</h4>
   </div>

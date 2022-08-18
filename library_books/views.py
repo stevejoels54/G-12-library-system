@@ -105,7 +105,8 @@ def borrowBook(request, book, pk):
                     except:
                         borrowed_book = None
                     try:
-                        request = Request.objects.get(requester_id=user)
+                        request = Request.objects.filter(
+                            requester_id=user).filter(status="Pending")
                     except:
                         request = None
                     if borrowed_book is None and request is None:
