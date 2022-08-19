@@ -240,7 +240,7 @@ def requestAction(request, pk):
             accepted_request.status = "Accepted"
             borrowed_book.status = 'Borrowed'
             borrowed_book.borrower_id = CustomUser.objects.get(id=pk)
-            borrowed_book.due_date = datetime.now() + timedelta(hours=168)
+            borrowed_book.due_date = datetime.now() + timedelta(days=7)
             borrowed_book.save()
             accepted_request.save()
             return redirect('/user-notifications/' + str(request.user.id))
@@ -252,7 +252,7 @@ def requestAction(request, pk):
             declined_request.status = "Declined"
             declined_book.status = 'Available'
             declined_book.borrower_id = None
-            declined_book.due_date = datetime.now() + timedelta(hours=168)
+            declined_book.due_date = None
             declined_book.save()
             declined_request.save()
             return redirect('/user-notifications/' + str(request.user.id))
