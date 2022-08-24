@@ -205,13 +205,13 @@ def userNotifications(request, pk):
         return_date = datetime.strptime(
             str(borrowed_book.due_date).split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
         now = datetime.strptime(str(datetime.now()), '%Y-%m-%d %H:%M:%S.%f')
+        #now = datetime.strptime("2022-08-26 13:40:6.0", '%Y-%m-%d %H:%M:%S.%f')
         days = (now - return_date).days
         if days == -1:
             warning = 'You have 1 day to return the book'
         elif days == 0:
             warning = 'You have to return the book today'
     requests_pending = Request.objects.all().filter(status="Pending")
-
     context = {
         'details': requests_pending,
         'users': users.count(),
