@@ -236,7 +236,7 @@ def returnBook(request, pk):
             now = datetime.strptime(str(datetime.now()),
                                     '%Y-%m-%d %H:%M:%S.%f')
             days = (now - return_date).days
-            if days == 3:
+            if days >= 3 and days < 10:
                 fine = 5000
                 payment = UserPayment(
                     payee_book=book,

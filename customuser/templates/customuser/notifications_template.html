@@ -2,7 +2,7 @@
 
 <div class="container-fluid">
   {% if request.user.role == 'Student' and warning %}
-    <div class="container-fluid p-3 mt-2 mb-1">
+    <div class="container-fluid mt-4">
       <div
         class="card border-0 shadow-sm alert alert-danger"
         style="width: 100%"
@@ -18,8 +18,25 @@
     </div>
 {% endif %}
 
+{% if request.user.role == 'Student' and fine %}
+    <div class="container-fluid mt-4">
+      <div
+        class="card border-0 shadow-sm alert alert-danger"
+        style="width: 100%"
+      >
+        <div class="card-body">
+          <h5 class="card-title text-muted">
+            <i class="bi-bell"></i>User notification
+          </h5>
+          <h5 class="mb-2">{{user.name}}</h5>
+          <h5 class="text-muted text-center"><i class="bi bi-exclamation-triangle"></i> You have been fined {{fine}} UGX for delaying to return the book</h5>
+        </div>
+      </div>
+    </div>
+{% endif %}
+
   {% if request.user.role == 'Student' and borrowed_book and requests%}
-  <div class="container-fluid p-3 mt-2">
+  <div class="container-fluid mt-4">
     <div
       class="card border-0 shadow-sm alert alert-primary"
       style="width: 100%"
@@ -44,7 +61,7 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid p-3">
+  <div class="container-fluid mt-4">
     {% for request in requests %}
     <div
       class="card border-0 shadow-sm alert alert-primary mt-2"
@@ -72,7 +89,7 @@
   </div>
 
   {% elif request.user.role == 'Student' and requests%}
-  <div class="container-fluid p-3">
+  <div class="container-fluid mt-4">
     {% for request in requests %}
     <div
       class="card border-0 shadow-sm alert alert-primary mt-2"
