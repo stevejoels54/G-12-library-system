@@ -255,6 +255,7 @@ def returnBook(request, pk):
                 )
                 payment.save()
             book.status = "Available"
+            book.due_date = None
             book.borrower_id = None
             book.save()
             return redirect('/dashboard/' + str(user))
