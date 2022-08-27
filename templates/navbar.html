@@ -1,7 +1,62 @@
 {% load static %}
-<nav class="navbar navbar-expand mt-3">
-  <div class="container-fluid bg-light" style="position: fixed; z-index: 1000">
-    <div class="container-fluid mb-2">
+<style>
+  @media screen and (min-width: 768px) {
+    .nav-btn {
+      display: none;
+    }
+    .search-form {
+      display: flex;
+      justify-content: flex-end;
+      width: 50%;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .search-form {
+      display: none;
+    }
+  }
+  .link {
+    display: b lock;
+    color: black;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  .link.active {
+    background-color: #6495ed;
+    width: 100%;
+    color: white;
+  }
+
+  .link:hover:not(.active) {
+    background-color: #6495ed;
+    color: white;
+  }
+  @media screen and (max-width: 424px) {
+    .navbar-header-one {
+      display: none;
+    }
+    .navbar-header-two {
+      display: flex;
+    }
+  }
+  @media screen and (min-width: 425px) {
+    .navbar-header-one {
+      display: flex;
+    }
+    .navbar-header-two {
+      display: none;
+    }
+  }
+  .add-card {
+    margin: 10;
+    width: 100%;
+  }
+</style>
+
+<nav class="navbar navbar-light bg-light fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header-one">
       <a href="/" class="navbar-brand link-dark">
         <img
           src="{% static '/images/liblogo1.png' %}"
@@ -13,15 +68,179 @@
         Library Management System
       </a>
     </div>
+    <div class="navbar-header-two">
+      <a href="/" class="navbar-brand link-dark">
+        <img
+          src="{% static '/images/liblogo1.png' %}"
+          alt=""
+          width="30"
+          height="30"
+          class="d-inline-block align-text-top"
+        />
+        LMS
+      </a>
+    </div>
+    <div class="search-form">
+      <form
+        class="d-flex"
+        method="GET"
+        action="{% url 'searchbook'%}"
+        style="width: 70%"
+      >
+        <input
+          class="form-control me-2"
+          type="search"
+          name="value"
+          placeholder="Search books"
+        />
+        <button class="btn btn-sm btn-primary" type="submit">Search</button>
+      </form>
+    </div>
+    <button
+      class="navbar-toggler nav-btn"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+      <div class="offcanvas-header bg-light">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+          Library Management System
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item mb-2 link">
+            <a href="{% url 'dashboard' user.id %}"
+              ><i class="bi bi-speedometer2"></i> Dashboard</a
+            >
+          </li>
+          <li class="nav-item mb-2 link">
+            {% if user.role == "Admin" %}
+            <a href="{% url 'notifications' user.id %}"
+              ><i class="bi bi-book"></i> Requests</a
+            >
+            {% else %}
+            <a href="{% url 'notifications' user.id %}"
+              ><i class="bi bi-bell"></i> Notifications</a
+            >
+            {% endif %}
+          </li>
+          <li class="nav-item mb-2 link">
+            <a href="{% url 'payments' user.id %}"
+              ><i class="bi bi-credit-card"></i> Payments</a
+            >
+          </li>
+          <li class="nav-item mb-2 link">
+            <a href="{% url 'profile' user.id %}">
+              <i class="bi bi-person"></i> Profile</a
+            >
+          </li>
+          <li class="nav-item link">
+            <a href="{% url 'logout' %}"
+              ><i class="bi bi-box-arrow-left"></i> Logout</a
+            >
+          </li>
+        </ul>
+        <form
+          class="d-flex mt-2"
+          method="GET"
+          action="{% url 'searchbook'%}"
+          style="width: 100%"
+        >
+          <input
+            class="form-control me-2"
+            type="search"
+            name="value"
+            placeholder="Search books"
+          />
+          <button class="btn btn-sm btn-primary" type="submit">Search</button>
+        </form>
+        {% if user.role == "Admin" %}
+        <div class="shadow-sm mt-3 rounded add-card">
+          <div class="container-fluid mb-1">
+            <h5 class="text-center">Add book</h5>
+            <form
+              action="{% url 'addbook' %}"
+              method="GET"
+              class="needs-validation"
+              autocomplete="off"
+            >
+              <div class="form-group input-group mb-1">
+                <span class="input-group-text"><strong>Title</strong></span>
+                <input
+                  class="form-control"
+                  value="{{title}}"
+                  id="title"
+                  name="title"
+                  placeholder="Book title"
+                  required
+                />
+              </div>
 
-    <form class="d-flex w-50" method="GET" action="{% url 'searchbook'%}">
-      <input
-        class="form-control me-2"
-        type="search"
-        name="value"
-        placeholder="Search books"
-      />
-      <button class="btn btn-sm btn-primary" type="submit">Search</button>
-    </form>
+              <div class="form-group input-group mb-1">
+                <span class="input-group-text"><strong>Author</strong></span>
+                <input
+                  class="form-control"
+                  value="{{author}}"
+                  id="author"
+                  name="author"
+                  placeholder="Book author"
+                  required
+                />
+              </div>
+
+              <div class="form-group input-group mb-1">
+                <span class="input-group-text"><strong>Category</strong></span>
+                <input
+                  class="form-control"
+                  value="{{subject_area}}"
+                  id="subject_area"
+                  name="subject_area"
+                  placeholder="Book category"
+                  required
+                />
+              </div>
+
+              <div class="form-group input-group mb-1">
+                <span class="input-group-text"
+                  ><strong>Publication date</strong></span
+                >
+                <input
+                  class="form-control"
+                  value="{{publication_date}}"
+                  type="date"
+                  id="publication_date"
+                  name="publication_date"
+                  placeholder="Publication date"
+                  required
+                />
+              </div>
+
+              <div class="mt-2 text-center">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi-plus-circle"></i><strong> Add Book</strong>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
   </div>
 </nav>
