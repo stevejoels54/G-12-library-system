@@ -53,6 +53,21 @@
         background-color: rgba(255, 0, 0, 0.2);
         padding: 10px;
       }
+      @media screen and (max-width: 500px) {
+        .card-length {
+          width: 95%;
+        }
+      }
+      @media screen and (min-width: 768px) {
+        .card-length {
+          width: 75%;
+        }
+      }
+      @media screen and (min-width: 1024px) {
+        .card-length {
+          width: 60%;
+        }
+      }
     </style>
   </head>
   <body>
@@ -85,7 +100,7 @@
       </div>
       <h1 class="text-center mt-3">Welcome to LMS!</h1>
       <div class="d-flex justify-content-center">
-        <div class="card w-50 mt-2 shadow-lg">
+        <div class="card mt-2 shadow-lg card-length">
           <div class="card-header">Signup</div>
           <div class="card-body">
             {% if messages %} {% for message in messages %}
@@ -98,125 +113,127 @@
               autocomplete="off"
             >
               {% csrf_token %}
-              <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label for="email">Name:</label>
-                    <input
-                      class="form-control"
-                      id="name"
-                      name="name"
-                      value="{{ name }}"
-                      required
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Username:</label>
-                    <input
-                      class="form-control"
-                      id="username"
-                      name="username"
-                      value="{{ username }}"
-                      required
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input
-                      class="form-control"
-                      id="email"
-                      name="email"
-                      value="{{ email }}"
-                      required
-                    />
-                  </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-1 col-md-6 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                      <label for="email">Name:</label>
+                      <input
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        value="{{ name }}"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Username:</label>
+                      <input
+                        class="form-control"
+                        id="username"
+                        name="username"
+                        value="{{ username }}"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email:</label>
+                      <input
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        value="{{ email }}"
+                        required
+                      />
+                    </div>
 
-                  <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="pwd"
-                      name="password"
-                      value="{{ password }}"
-                      required
-                    />
+                    <div class="form-group">
+                      <label for="pwd">Password:</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="pwd"
+                        name="password"
+                        value="{{ password }}"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="pwd">Confirm password:</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="pwd"
+                        name="confirm_password"
+                        value="{{ confirm_password }}"
+                        required
+                      />
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label for="pwd">Confirm password:</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="pwd"
-                      name="confirm_password"
-                      value="{{ confirm_password }}"
-                      required
-                    />
+                  <div class="col-sm-1 col-md-6 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                      <label for="phone">Phone:</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="phone_number"
+                        name="phone_number"
+                        value="{{ phone_number }}"
+                        placeholder="eg. 2567******"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="role">Role:</label>
+                      <select
+                        class="form-select"
+                        name="role"
+                        value="{{ role }}"
+                        id="role"
+                        aria-label="Role select"
+                        required
+                      >
+                        <option value="" selected disabled>
+                          Please select role
+                        </option>
+                        <option value="Student">Student</option>
+                        <option value="Admin">Administrator</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="role">Sex:</label>
+                      <select
+                        class="form-select"
+                        name="sex"
+                        value="{{ sex }}"
+                        id="sex"
+                        aria-label="Sex select"
+                        required
+                      >
+                        <option value="" selected disabled>
+                          Please select sex
+                        </option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </div>
+                    <div class="date form-group" data-provide="datepicker">
+                      <label for="date">Date of Birth:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="DOB"
+                        value="{{ date_of_birth }}"
+                        name="date_of_birth"
+                        required
+                      />
+                      <div class="input-group-addon"></div>
+                    </div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="phone_number"
-                      name="phone_number"
-                      value="{{ phone_number }}"
-                      placeholder="eg. 2567******"
-                      required
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="role">Role:</label>
-                    <select
-                      class="form-select"
-                      name="role"
-                      value="{{ role }}"
-                      id="role"
-                      aria-label="Role select"
-                      required
-                    >
-                      <option value="" selected disabled>
-                        Please select role
-                      </option>
-                      <option value="Student">Student</option>
-                      <option value="Admin">Administrator</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="role">Sex:</label>
-                    <select
-                      class="form-select"
-                      name="sex"
-                      value="{{ sex }}"
-                      id="sex"
-                      aria-label="Sex select"
-                      required
-                    >
-                      <option value="" selected disabled>
-                        Please select sex
-                      </option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
-                  </div>
-                  <div class="date form-group" data-provide="datepicker">
-                    <label for="date">Date of Birth:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="DOB"
-                      value="{{ date_of_birth }}"
-                      name="date_of_birth"
-                      required
-                    />
-                    <div class="input-group-addon"></div>
-                  </div>
+                <div class="d-flex justify-content-between mt-3">
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-              </div>
-              <div class="d-flex justify-content-between mt-3">
-                <button type="submit" class="btn btn-primary">Submit</button>
               </div>
             </form>
           </div>
