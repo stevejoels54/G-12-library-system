@@ -1,22 +1,79 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
-<div class="container-fluid w-100">
+<div class="container-fluid">
   <style>
     .books-container {
       display: flex;
       flex-direction: row;
+      justify-content: flex-start;
       flex-wrap: wrap;
-      margin-top: 40px;
+      margin-top: 70px;
     }
     .cards {
-      width: 25.6%;
-      margin: 28.5px;
+      width: 32%;
+      margin: 5px;
       margin-bottom: 10px;
     }
+    @media screen and (max-width: 1024px) {
+      .books-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 70px;
+      }
+      .cards {
+        width: 48%;
+        margin: 5.65px;
+        margin-bottom: 10px;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .books-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 70px;
+      }
+      .cards {
+        width: 40%;
+        margin: 5.7px;
+        margin-bottom: 10px;
+      }
+    }
+    @media screen and (max-width: 425px) {
+      .books-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin-top: 70px;
+      }
+      .cards {
+        width: 46%;
+        margin: 6.5px;
+        margin-bottom: 10px;
+      }
+    }
+    @media screen and (max-width: 320px) {
+      .books-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 70px;
+      }
+      .cards {
+        width: 65%;
+        margin: 5px;
+        margin-bottom: 10px;
+      }
+    } 
   </style>
   <div class="books-container">
     {% if user.role == "Student" %} {% if books %} {% for book in books %}
     <div class="cards">
-      <div class="card" style="width: 15rem">
+      <div class="card" style="width: 100%">
         <img
           src="{% static '/images/imagebook1.jpeg' %}"
           class="card-img-top"
@@ -34,69 +91,71 @@
     </div>
     {% endfor %} {% else %}
     <h1 class="d-flex justify-content-center mt-5 ml-5">No books found...</h1>
-    {% endif %} {% elif user.role == "Admin" %}
-    <div>
-      {% if books %}
-      <table class="table table-bordered table-responsive table-hover w-100">
-        <thead>
-          <tr>
-            <nav class="navbar">
-              <div class="container-fluid">
-                <a class="navbar-brand">Library Books</a>
+  {% endif %} 
+  {% endif %}
+  </div>
+  <div class"container-fluid" style="overflow-x:auto;">
+    {% if user.role == "Admin" %}
+    {% if books %}
+    <table class="table table-bordered table-hover container">
+      <thead>
+        <tr>
+          <nav class="navbar">
+            <div class="container-fluid d-flex justify-content-start">
+              <a class="navbar-brand text-align-center">Library Books</a>
+            </div>
+          </nav>
+        </tr>
+        <tr class="mw-100" style="text-align: center; width: 100%">
+          <th scope="col" style="text-align: center; width: 10%">ID</th>
+          <th scope="col" style="text-align: center; width: 20rem">Title</th>
+          <th scope="col" style="text-align: center; width: 20rem">Author</th>
+          <th scope="col" style="text-align: center; width: 20rem">
+            Category
+          </th>
+          <th scope="col" style="text-align: center; width: 20rem">status</th>
+          <th scope="col" style="text-align: center; width: 20rem">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in books %}
+        <tr>
+          <th scope="row" class="text-center">bk-{{book.id}}</th>
+          <td class="text-center">{{book.title}}</td>
+          <td class="text-center">{{book.author}}</td>
+          <td class="text-center">{{book.subject_area}}</td>
+          <td class="text-center">{{book.status}}</td>
+          <td class="text-center">
+            <form method="GET" action="{% url 'bookaction' %}">
+              <div class="btn-group justify-content-center" role="group">
+                <button
+                  type="submit"
+                  class="btn btn-outline-primary"
+                  value="{{book.id}}"
+                  name="Update"
+                >
+                  Update
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-outline-danger"
+                  value="{{book.id}}"
+                  name="Delete"
+                >
+                  Delete
+                </button>
               </div>
-            </nav>
-          </tr>
-          <tr class="mw-100" style="text-align: center; width: 100%">
-            <th scope="col" style="text-align: center; width: 10%">ID</th>
-            <th scope="col" style="text-align: center; width: 20rem">Title</th>
-            <th scope="col" style="text-align: center; width: 20rem">Author</th>
-            <th scope="col" style="text-align: center; width: 20rem">
-              Category
-            </th>
-            <th scope="col" style="text-align: center; width: 20rem">status</th>
-            <th scope="col" style="text-align: center; width: 20rem">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for book in books %}
-          <tr>
-            <th scope="row" class="text-center">bk-{{book.id}}</th>
-            <td class="text-center">{{book.title}}</td>
-            <td class="text-center">{{book.author}}</td>
-            <td class="text-center">{{book.subject_area}}</td>
-            <td class="text-center">{{book.status}}</td>
-            <td class="text-center">
-              <form method="GET" action="{% url 'bookaction' %}">
-                <div class="btn-group justify-content-center" role="group">
-                  <button
-                    type="submit"
-                    class="btn btn-outline-primary"
-                    value="{{book.id}}"
-                    name="Update"
-                  >
-                    Update
-                  </button>
-                  <button
-                    type="submit"
-                    class="btn btn-outline-danger"
-                    value="{{book.id}}"
-                    name="Delete"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </form>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% else %}
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
       <h1 class="d-flex justify-content-center mt-5 ml-5">No books found...</h1>
-      {% endif %}
-    </div>
+    {% endif %}  
     {% endif %}
   </div>
   <div class="mt-5"></div>

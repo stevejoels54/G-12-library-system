@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 70px; margin-bottom: 70px;">
   {% if request.user.role == 'Student' and warning %}
     <div class="container-fluid mt-4">
       <div

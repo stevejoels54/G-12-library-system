@@ -1,15 +1,22 @@
-{% extends 'customuser/custom_card.html'%}
-{% load static %}
+{% extends 'customuser/custom_card.html'%} {%block custom_content%}
 
-{% block custom_content %}
-
-<div class="" style="text-align: center;">
-  <img src="{% static '/images/profile.png'%}" height="200" width="200" style="border-radius: 50%" class="m-2"/>
+<div class="" style="text-align: center; margin-top: 70px">
+  {%load static%}
+  <img
+    src="{% static '/images/profile.png'%}"
+    height="200"
+    width="200"
+    style="border-radius: 50%"
+    class="m-2"
+  />
   <h5 class="text-muted"><i class="bi-person"></i> {{user.role}}</h5>
   <h5>~ {{user.name}}</h5>
   <h5><i class="bi-envelope"></i> {{user.email}}</h5>
   <h5><i class="bi-telephone"></i> +{{user.phone_number}}</h5>
-  <h5><i class="bi-calendar-event"></i> Joined: {{user.date_joined | timesince }} ago.</h5>
+  <h5>
+    <i class="bi-calendar-event"></i> Joined: {{user.date_joined | timesince }}
+    ago.
+  </h5>
 </div>
 
 {% endblock %}
