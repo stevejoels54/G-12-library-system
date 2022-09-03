@@ -13,6 +13,10 @@
       margin: 5px;
       margin-bottom: 10px;
     }
+    .warning {
+      width: 20%;
+      height: 5%;
+    }
     @media screen and (max-width: 1024px) {
       .books-container {
         display: flex;
@@ -128,26 +132,26 @@
           <td class="text-center">{{book.subject_area}}</td>
           <td class="text-center">{{book.status}}</td>
           <td class="text-center">
-            <form method="GET" action="{% url 'bookaction' %}">
-              <div class="btn-group justify-content-center" role="group">
-                <button
-                  type="submit"
-                  class="btn btn-outline-primary"
-                  value="{{book.id}}"
-                  name="Update"
-                >
-                  Update
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-outline-danger"
-                  value="{{book.id}}"
-                  name="Delete"
-                >
-                  Delete
-                </button>
-              </div>
-            </form>
+            <div class="btn-group justify-content-center" role="group">
+              <button
+                type="submit"
+                class="btn btn-outline-primary"
+                value="{{book.id}}"
+                name="Update"
+              >
+                Update
+              </button>
+              <button
+                type="button" 
+                class="btn btn-outline-danger" 
+                data-bs-toggle="modal"
+                data-bs-target="#confirmdeleteModal" 
+                value="{{book.id}}+{{book.title}}"
+                onClick='deleteBook(this)'
+              >
+                Delete
+              </button>
+            </div>
           </td>
         </tr>
         {% endfor %}
@@ -160,4 +164,33 @@
   </div>
   <div class="mt-5"></div>
 </div>
+{% comment %} Confirm delete modal {% endcomment %}
+<div class="modal fade" id="confirmdeleteModal" tabindex="-1" aria-labelledby="confirmdeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-warning text-center"><i class="bi bi-exclamation-triangle"></i></h1>
+        <h5 class="text-center">Are you sure?</h5>
+        <h6 class="text-muted text-center">Do you really want to delete <span id="msg"></span>?</h6>
+        <h6 class="text-muted text-center">This process cannot be undone!</h6>
+        <div class="d-flex justify-content-center mt-3">
+          <button type="button" class="btn btn-secondary m-3" data-bs-dismiss="modal"><i class="bi bi-x"></i> Cancel</button>
+          <form method="GET" action="{% url 'bookaction' %}">
+            <button type="submit" class="btn btn-danger m-3" data-bs-dismiss="modal" value="" name="Delete" id="book-delete-button"><i class="bi bi-trash3"></i> Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} Confirm delete script that passes pressed bookID to confirmation modal form {% endcomment %}
+<script>
+  const deleteBook = (sender) => {
+        document.getElementById("msg").innerHTML = sender.value.split("+")[1];
+        document.getElementById("book-delete-button").value =  sender.value.split("+")[0];
+  }
+</script>
 {% endblock %}
